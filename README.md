@@ -16,9 +16,4 @@ Digisales is an application designed for use by salespeople. that make the sales
     <img src="https://github.com/noteyn51/digisales/blob/main/screenshot/6.png" alt="drawing" width="300"/>
     <img src="https://github.com/noteyn51/digisales/blob/main/screenshot/7.png" alt="drawing" width="300"/>
 </kbd>
-
-<div style="height:200px;widrh:200px;background-color:red">
-
-</div>
-
 </p>
