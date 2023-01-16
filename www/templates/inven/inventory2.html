@@ -1,0 +1,111 @@
+<ion-view hide-back-button="false" cache-view="true">
+
+  <ion-nav-title>ค้นหาคลังสินค้า
+  </ion-nav-title>
+
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lis .card {
+      margin: 2px;
+    }
+
+    .kk .spinner svg {
+      width: 100px;
+      height: 50px;
+    }
+  </style>
+  </style>
+
+  <ion-content style="background:#f5f5f5;">
+
+
+    <div style="margin:10px">
+      <div>{{textShow.part}}</div>
+      <div>{{textShow.site}}</div>
+      <div>{{textShow.loc}}</div>
+    </div>
+
+    <div class="list">
+
+
+
+
+      <div class="item item-divider">
+        <div style="display: flex;justify-content: space-between;">
+
+          <div style="font-weight: bold">รายการ</div>
+          <div style="font-weight: bold">Site / Loc</div>
+
+
+        </div>
+
+
+      </div>
+
+
+      <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
+
+        <div class="accordion-item" ng-repeat="x in vm.lotlist ">
+          <h2 class="accordion-header" id="flush-heading{{$index}}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapse{{$index}}" aria-expanded="false" aria-controls="flush-collapse{{$index}}">
+
+              <div style="display: flex;flex-direction: column;">
+                <div>
+                  {{x.pt_desc1}} / {{x.pt_part}}
+                </div>
+
+                <div>
+                  รวมจำนวน : {{x.ld_qty_oh}} {{x.pt_um}}
+
+                </div>
+
+              </div>
+            </button>
+          </h2>
+          <div id="flush-collapse{{$index}}" class="accordion-collapse collapse"
+            aria-labelledby="flush-heading{{$index}}" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the
+              <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+          </div>
+        </div>
+      </div> -->
+
+
+          
+      <a class="item" ng-repeat="x in vm.lotlist ">
+        <div  style="display: flex;justify-content: space-between;">
+          <h2>{{x.pt_part}} </h2>
+          <h2>Site : {{x.ld_site}} / Loc : {{x.ld_loc}}</h2>
+        </div>
+        <div style="display: flex;justify-content: space-between;">
+          <p> {{x.pt_desc1}}</p>
+        </div>
+        <div>
+          <div style="font-size: 18px;font-weight: bold;text-align: right;"> {{x.ld_qty_oh}} {{x.pt_um}}</div>
+
+        </div>
+      </a>
+
+
+    </div>
+
+
+
+  </ion-content>
+
+</ion-view>

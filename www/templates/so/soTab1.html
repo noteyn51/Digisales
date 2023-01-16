@@ -1,0 +1,124 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <ion-nav-title>ข้อมูลพื้นฐาน </ion-nav-title>
+  <ion-nav-buttons side="right"> </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+
+  <ion-content style="background-color: white">
+    <div class="md-padding">
+      <div class="list">
+        <div ng-repeat="x in baseconfigData">
+          <div ng-if="x.type == 'date'">
+            <div
+              layout="row"
+              layout-align="space-between center"
+              ng-click="selectDate(x)"
+            >
+              <span style="min-width: 120px; margin: 15px 0px 15px 0px"
+                >{{x.title}}</span
+              >
+              <div style="margin: 15px">{{x.selected.des}}</div>
+            </div>
+          </div>
+          <div ng-if="x.type == 'select'">
+            <div layout="row" layout-align="space-between center">
+              <span style="min-width: 120px">{{x.title}}</span>
+              <md-select
+                md-on-open="selectOpened = true"
+                md-on-close="selectOpened = false"
+                ng-change="selectChange(selectOpened,x)"
+                ng-model="x.selected"
+                ng-model="x.selected"
+                ng-model-options="{trackBy: '$value.value'}"
+                placeholder="เลือก{{x.title}}"
+                class="md-no-underline"
+                style="margin: 10px"
+              >
+                <md-option ng-repeat="j in x.select" ng-value="j">
+                  {{j.des }}
+                </md-option>
+              </md-select>
+            </div>
+          </div>
+
+          <div ng-if="x.type == 'input'">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>{{x.title}}</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อน{{x.title}}"
+                ng-model="x.selected.value"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+
+          <div ng-if="x.type == 'remark'" style=>
+            <div
+            ng-click="openModalComment()"
+              class="item item-icon-right"
+              style="
+                  border: 0pt;
+                  padding-top: 15px;
+                  padding-left: 0px;
+                  margin-top: auto;
+              "
+            >
+              {{x.title}}
+              <span class="badge badge-assertive">{{checkComment()}}</span>
+            </div>
+          </div>
+
+          <md-divider></md-divider>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+
+  <script id="comment-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalComment()">ปิด</button>
+        <h1 class="title" style="text-align:center" >หมายเหตุเอกสาร</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+
+        <div class="list">
+          <label class="item item-input item-stacked-label" ng-repeat="x in baseconfigData[20].selected.value">
+            <span class="input-label">หมายเหตุ {{$index+1}}</span>
+            <input type="text" placeholder="หมายเหตุ {{$index+1}}" ng-model="x.value">
+          </label>
+        </div>
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

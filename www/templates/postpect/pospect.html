@@ -1,0 +1,205 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <ion-nav-buttons side="left">
+      <!-- <button class="button  button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+        ย้อนกลับ</button> -->
+    </ion-nav-buttons>
+  <ion-nav-title>ข้อมูลลูกค้า
+  </ion-nav-title>
+  
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+  </style>
+
+  <ion-content style="background:#f5f5f5;">
+
+    <div class="card" style="margin: 0px 0px; ">
+
+      <!-- 
+      <div class="item item-divider" style="text-align:left">
+        <h2 style="font-size: 16pt"><i class="icon ion-person "></i> ข้อมูลเข้าใช้งาน</h2>
+      </div>
+
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">รหัสเข้าใช้งาน</span>
+        <input type="text" placeholder="รหัสเข้าใช้งาน (username)" ng-model="model.user_username"
+          ng-pattern="/^[a-zA-Z0-9]*$/" uppercased>
+      </label>
+
+
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">รหัสผ่าน</span>
+        <span ng-if="!checkPass()" style="position: absolute;right: 10px;color:red">รหัสผ่านไม่ตรงกัน</span>
+        <input type="password" placeholder="รหัสผ่าน" ng-model="model.user_pass" ng-pattern="/^[a-zA-Z0-9]*$/"
+          uppercased>
+
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">ยืนยันรหัสผ่าน</span>
+        <span ng-if="!checkPass()" style="position: absolute;right: 10px;color:red">รหัสผ่านไม่ตรงกัน</span>
+
+        <input type="password" placeholder="ยืนยันรหัสผ่าน" ng-model="model.user_repass" ng-pattern="/^[a-zA-Z0-9]*$/"
+          uppercased>
+      </label> -->
+      <div class="item item-divider" style="text-align:left">
+        <h2 style="font-size: 16pt"><i class="icon ion-person"></i> ข้อมูลลูกค้า</h2>
+      </div>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">คำนำหน้า<span style="color:red">*</span></span>
+        <div class="row" style="text-align:center;margin-left:0px;position:relative">
+          <div class="col">
+
+            <div class="form-group">
+              <select class="form-control" id="exampleFormControlSelect1" style="border:solid 1 pt"
+                ng-model="model.user_title">
+                <option ng-repeat="x in vm.title">{{x.title}}</option>
+              
+              </select>
+            </div>
+          </div>
+        </div>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">ชื่อ<span style="color:red">*</span></span>
+        <input type="text" placeholder="ชื่อ" ng-model="model.user_fname">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">นามสกุล</span>
+        <input type="text" placeholder="นามสกุล" ng-model="model.user_lname">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">ชื่อเล่น</span>
+        <input type="text" placeholder="ชื่อเล่น" ng-model="model.user_nname">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">ตำแหน่ง</span>
+        <input type="text" placeholder="ตำแหน่ง" ng-model="model.user_position">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">หน่วยงาน<span style="color:red">*</span></span>
+        <input type="text" placeholder="หน่วยงาน" ng-model="model.user_agency">
+      </label>
+      
+
+
+
+
+
+
+
+
+      <div class="list">
+
+
+        <div class="item item-divider" style="text-align:left">
+          <h2 style="font-size: 16pt"><i class="icon ion-map "></i> ข้อมูลการติดต่อ</h2>
+        </div>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">อีเมล์</span>
+          <input type="text" placeholder="Example@gmail.com" ng-model="model.user_email">
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">เบอร์ติดต่อ(มือถือ)<span style="color:red">*</span></span>
+          <input type="text" placeholder="เบอร์ที่สามารถติดต่อได้ 10 หลัก" ng-model="model.user_tel_mobile"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10">
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">เบอร์ติดต่อ(บ้าน)</span>
+          <input type="text" placeholder="เบอร์ที่สามารถติดต่อได้ 10 หลัก" ng-model="model.user_tel"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'');"  maxlength="10">
+        </label>
+
+  
+
+
+        <label class="item item-input item-stacked-label">
+            <span class="input-label"> Social
+            </span>
+  
+            <input type="text" placeholder="fb.com/Example" ng-model="model.user_social">
+          </label>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label"> web
+            </span>
+  
+            <input type="text" placeholder="" ng-model="model.user_web">
+          </label>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label"> skype
+            </span>
+  
+            <input type="text" placeholder="" ng-model="model.user_skype">
+          </label>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label"> IG
+            </span>
+  
+            <input type="text" placeholder="fb.com/Example" ng-model="model.user_ig">
+          </label>
+
+
+
+
+
+
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label"> Line ID
+          </span>
+
+          <input type="text" placeholder="@lineID" ng-model="model.user_line">
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">ผู้แนะนำ<span style="color:red">*</span></span>
+          <input type="text" placeholder="สถานที่" ng-model="model.user_event">
+        </label>
+
+      
+      </div>
+
+    </div>
+
+    <div style="height:100px"></div>
+
+
+
+
+
+
+  </ion-content>
+  <div style="position: absolute; bottom: 0px; width: 100%; background: white;">
+    <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+      <button class="button button-block button-balanced ion-chevron-right icon-right" ng-click="goAddress()">
+        ที่อยู่
+      </button>
+    </div>
+  </div>
+</ion-view>

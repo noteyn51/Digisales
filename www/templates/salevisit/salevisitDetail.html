@@ -1,0 +1,243 @@
+<ion-view hide-back-button="false" hide-nav-bar="false" cache-view="false">
+  <ion-nav-title>รายละเอียดนัดหมาย</ion-nav-title>
+  <ion-nav-buttons side="right"> </ion-nav-buttons>
+  <ion-content
+    style="
+      background-size: cover;
+      /* background-image: url('/img/home-bg.svg'); */
+      background-color: rgba(245, 245, 245, 1);
+      /* background-color: white; */
+    "
+  >
+    <div style="padding: 20px; background-color: white">
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          /* background-color: blue; */
+          align-items: center;
+        "
+      >
+        <div style="font-weight: bold">
+          <i class="icon ion-calendar"></i> รายละเอียดการนัดหมาย
+        </div>
+        <div style="color: gray" ng-click="edit()">แก้ไข</div>
+      </div>
+
+      <!-- <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">เลขที่เอกสาร :</div>
+        <div style="margin-left: 5px">{{visitDetail.calendar_nbr}}</div>
+      </div> -->
+      <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">ชื่อลูกค้า :</div>
+        <div style="margin-left: 5px">{{visitDetail.cmad_attn}}</div>
+      </div>
+
+      <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">เวลานัดหมาย :</div>
+        <div style="margin-left: 5px">
+          {{visitDetail.datestart.long_desc}} {{visitDetail.datestart.time}}
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">เวลาสิ้นสุด :</div>
+        <div style="margin-left: 5px">
+          {{visitDetail.dateend.long_desc}} {{visitDetail.dateend.time}}
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">สถานที่นัดหมาย :</div>
+        <div style="margin-left: 5px">{{visitDetail.calendar_desc1}}</div>
+      </div>
+    </div>
+
+    <div style="padding: 20px; background-color: white; margin-top: 10px">
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          /* background-color: blue; */
+          align-items: center;
+        "
+      >
+        <div style="font-weight: bold">
+          <i class="icon ion-checkmark-circled"></i> เวลาเช็คอิน
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">เวลาเช็คอิน :</div>
+        <div style="margin-left: 5px">
+          {{visitDetail.datestart2.long_desc ?
+          visitDetail.datestart2.long_desc+' '+visitDetail.datestart2.time :
+          '-'}}
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; flex-direction: row; display: flex">
+        <div style="color: gray">เวลาเช็คเอาท์ :</div>
+        <div style="margin-left: 5px">
+          {{visitDetail.dateend2.long_desc ? visitDetail.dateend2.long_desc+'
+          '+visitDetail.dateend2.time : '-'}}
+        </div>
+      </div>
+
+      <div ng-if="visitDetail.calendar_nbr">
+        <button
+          ng-if="!visitDetail.calendar_date2_start"
+          class="button button-block button-balanced ion-clock"
+          ng-click="checkVisit('checkin')"
+          style="margin-top: 20px; border-radius: 10px"
+        >
+          เช็คอิน
+        </button>
+
+        <button
+          ng-if="visitDetail.calendar_date2_start && !visitDetail.calendar_date2_end"
+          class="button button-block button-assertive ion-clock"
+          ng-click="checkVisit('checkout')"
+          style="margin-top: 20px; border-radius: 10px"
+        >
+          เช็คเอาท์
+        </button>
+      </div>
+    </div>
+
+    <div style="padding: 20px; background-color: white; margin-top: 10px">
+      <div style="font-weight: bold">
+        <i class="icon ion-clipboard"></i> หัวข้อดำเนินการ
+      </div>
+
+      <div class="list">
+        <label
+          class="item-input item-stacked-label"
+          ng-repeat="x in visitDetail.listjob"
+          style="
+            padding-left: 0px;
+            border-style: solid;
+            border-color: #ddd;
+            border-bottom-width: 1pt;
+          "
+        >
+          <span class="input-label" style="font-weight: bold"
+            >{{x.calendar_det_desc1}}</span
+          >
+          <input
+            type="text"
+            placeholder="ระบุคำตอบ"
+            ng-model="x.calendar_det_desc2"
+          />
+        </label>
+      </div>
+    </div>
+    <div style="background-color: white; margin-top: 10px">
+      <div
+        style="
+          padding: 20px 20px 0px 20px;
+          font-weight: bold;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        "
+      >
+        <div><i class="icon ion-image"></i> รูปภาพการนัดหมาย</div>
+
+        <div style="color: green" ng-click="showListBottomSheet()">
+          +เพิ่มรูปภาพ
+        </div>
+      </div>
+
+      <ion-scroll direction="x" style="width: 100%; margin-top: 10px">
+        <div style="display: flex; padding-left: 10px; color: white">
+          <div ng-repeat="x in image track by $index">
+            <div
+              style="
+                width: 200px;
+                height: 200px;
+                margin-right: 2px;
+                position: relative;
+              "
+              ng-click="imageAction($index,x)"
+            >
+              <!-- <div style="position: absolute; width: 100%; text-align: right">
+                <button
+                  type="button"
+                  class="button button-small button icon ion-trash-a button-assertive"
+                  ng-click="deleteImg($index,x)"
+                ></button>
+              </div> -->
+              <img
+                ng-click="openModalMyImage(x)"
+                style="height: 100%; width: 100%; object-fit: cover"
+                ng-src="{{x.image_path}}"
+              />
+            </div>
+          </div>
+        </div>
+      </ion-scroll>
+
+      <div
+        ng-click="showListBottomSheet()"
+        ng-if="image.length == 0"
+        style="
+          display: flex;
+          height: 200px;
+          color: gray;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          font-size: x-large;
+        "
+      >
+        แตะเพื่อเพิ่มรูปภาพ
+      </div>
+    </div>
+
+    <div style="height: 100px"></div>
+  </ion-content>
+
+  <div
+    style="
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.1s;
+      background: white;
+      border-top-width: 0.1pt;
+      padding: 10px;
+    "
+  >
+    <div style="flex-direction: row; display: flex; text-align: center">
+      <button
+        class="button button-block button-positive"
+        ng-click="saveDetail()"
+        style="margin: 5px; border-radius: 10px"
+      >
+        บันทึกข้อมูล
+      </button>
+    </div>
+  </div>
+
+  <script id="action.html" type="text/ng-template">
+    <md-bottom-sheet class="md-list ">
+      <md-list ng-cloak>
+        <md-list-item ng-repeat="item in items"  md-autofocus="2">
+          <md-button
+          style="text-align:left;width:100%"
+
+              ng-click="listItemClick($index)"
+              >
+              <i class="icon ion-{{item.icon}}"></i>
+            <span >{{ item.name }}</span>
+          </md-button>
+
+        </md-list-item>
+      </md-list>
+    </md-bottom-sheet>
+  </script>
+</ion-view>

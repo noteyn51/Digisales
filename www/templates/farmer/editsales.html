@@ -1,0 +1,51 @@
+<ion-view hide-back-button="false" cache-view="false">
+  <ion-nav-title> Editsales </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <!-- <button type="button" class="button button-clear ion-plus-round" ng-click="vm.addcrop()" style="color:white;font-weight: bold;"> เพิ่ม</button> -->
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list">
+      <a class="item item-icon-left" ng-click="openModalSp()">
+        <i class="icon ion-person"></i>
+        เลือกพนักงานขาย
+        <span class="item-note">
+          เปลี่ยน
+        </span>
+        <p>{{global.sales.sp_addr}}</p>
+        <p>{{global.sales.sp_sort}}</p>
+        <p>{{global.sales.sp_territory}}</p>
+      </a>
+      </div>
+</ion-content>
+
+
+<script id="sp-modal.html" type="text/ng-template">
+  <ion-modal-view style="bottom:10%;border-raduius:10px;border-radius: 10px;">
+    <ion-header-bar>
+        <button type="button" class="button button-assertive button-clear" ng-click="closeModalSp()">close</button>
+      <h1 class="title" style="text-align:center" >SP</h1>
+      <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+    </ion-header-bar>
+    <ion-content >
+
+      <div class="list">
+
+        <a class="item" ng-repeat="x in vm.data.result" ng-click="selectSP(x)">
+          <h2>{{x.sp_addr}}</h2>
+          <p>{{x.sp_sort}}</p>
+          <p>{{x.sp_territory}}</p>
+
+        </a>
+    
+    
+    </div>
+
+      
+             
+  
+  
+    </ion-content>
+  </ion-modal-view>
+</script>
+</ion-view>
+</ion-view>

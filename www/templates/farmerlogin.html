@@ -1,0 +1,210 @@
+<ion-content
+  style="
+    display: flex;
+    flex-direction: column;
+    margin-top: constant(safe-area-inset-top);
+    margin-top: env(safe-area-inset-top);
+  "
+>
+  <div style="flex-direction: column; display: flex; height: 100vh">
+    
+    <div
+      style="
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <img
+        src="img/login.jpeg"
+        style="
+          max-height: 500px;
+          height: auto;
+          width: 100%;
+          max-width: 500px;
+          position: fixed;
+        "
+      />
+
+      <img
+      src="./img/mm-logo.png"
+      style="
+      width: 140px;
+    position: absolute;
+    left: 20px;
+    top: 20px"
+    />
+    </div>
+
+    <div style="flex: 1; display: flex;justify-content: center;">
+      <div
+        class="form-group"
+        style="
+          max-width: 600px;
+          padding-left: 20px;
+          padding-right: 20px;
+          vertical-align: middle;
+          width: 100%;
+          position: relative;
+          flex: 6;
+        "
+      >
+        <div style="margin-bottom: 20px">
+         
+          <h2>ลงชื่อเข้าใช้งาน</h2>
+        </div>
+
+        <label>ชื่อผู้ใช้งาน</label>
+        <div style="position:relative;margin-top: 5px;">
+
+        <input
+          style="border: solid 1px rgb(153, 153, 153);height: 40px;"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          ng-model="model.username"
+          ng-pattern="/^[a-zA-Z0-9]*$/"
+          uppercased
+        />
+        </div>
+
+
+        <div style="margin-top: 10px"></div>
+        
+
+        <label for="exampleInputEmail1">รหัสผ่าน</label>
+        <div style="position:relative;margin-top: 5px;">
+          <input
+            style="padding: 15px; border: solid 1px rgb(153, 153, 153);height: 40px;"
+            type="password"
+            class="form-control"
+            id="mypassword"
+            aria-describedby="emailHelp"
+            ng-model="model.password"
+            ng-pattern="/^[a-zA-Z0-9]*$/"
+            uppercased
+          />
+          <span
+            class="btn-show-pass"
+            style="position: absolute; right: 10px"
+          >
+            <i class="zmdi zmdi-eye"> </i>
+          </span>
+        </div>
+
+        <div style="margin-top: 30px"></div>
+
+        <button
+          type="button"
+          class="button button-positive button-full"
+          ng-click="vm.login()"
+          style="border-radius: 15px"
+        >
+          ลงชื่อเข้าใช้งาน
+        </button>
+
+        <button
+          type="button"
+          ng-click="vm.regis()"
+          class="button button-positive button-block button-outline"
+          style="border-radius: 15px"
+        >
+          สมัครสมาชิก
+        </button>
+        <div style="height: 50px;text-align: center;">
+         </div>
+      </div>
+      
+    </div>
+
+ 
+</div>
+  </div>
+
+  <!-- <div style="flex:1;height:100%;display: flex;background-color: blue;">
+  </div>
+
+  <div style="flex:1;display: flex; flex-direction: column;background-color: red;">
+  </div> -->
+
+  <!-- <div
+    style="
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+    "
+  >
+    <div>
+      <div
+        class="form-group"
+        style="
+          max-width: 600px;
+          margin: auto;
+          padding: 20px;
+          vertical-align: middle;
+          width: 100%;
+          position: relative;
+          flex: 6;
+        "
+      >
+        <div style="padding-bottom: 50px">
+          <h1>ลงชื่อเข้าใช้งาน</h1>
+        </div>
+
+        <label for="exampleInputEmail1">ชื่อเข้าใช้</label>
+        <input
+          type="text"
+          style="border: solid 1px rgb(153, 153, 153)"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          ng-model="model.username"
+          ng-pattern="/^[a-zA-Z0-9]*$/"
+          uppercased
+        />
+
+        <div style="margin-top: 10px"></div>
+
+        <label for="exampleInputEmail1">รหัสผ่าน</label>
+
+        <span
+          class="btn-show-pass"
+          style="position: absolute; right: 10%; top: 15px"
+        >
+          <i class="zmdi zmdi-eye"> </i>
+        </span>
+        <input
+          style="padding: 15px; border: solid 1px rgb(153, 153, 153)"
+          type="password"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          ng-model="model.password"
+          ng-pattern="/^[a-zA-Z0-9]*$/"
+          uppercased
+        />
+
+        <div style="margin-top: 30px"></div>
+
+        <button
+          type="button"
+          class="button button-positive button-full"
+          ng-click="vm.login()"
+        >
+          Login
+        </button>
+
+        <button
+          type="button"
+          ng-click="vm.regis()"
+          class="button button-positive button-block button-outline"
+          ng-click="vm.login()"
+        >
+          สมัครสมาชิก
+        </button>
+      </div>
+    </div>
+  </div> -->
+</ion-content>

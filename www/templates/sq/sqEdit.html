@@ -1,0 +1,371 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <!-- <ion-nav-buttons side="left">
+        <button class="button  button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+          Back</button>
+      </ion-nav-buttons> -->
+  <ion-nav-title>ใบเสนอราคา </ion-nav-title>
+
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .navBardemoBasicUsage md-content .ext-content {
+      padding: 50px;
+      margin: 20px;
+      background-color: #fff2e0;
+    }
+  </style>
+
+  <ion-content>
+    <div class="button-bar">
+      <a class="button" ng-click="gotoTab('tab1')">ข้อมุล</a>
+      <a class="button" ng-click="gotoTab('tab2')">รายการ</a>
+      <!-- <a class="button" ng-click="gotoTab('tab3')">ที่อยู่</a>
+      <a class="button" ng-click="gotoTab('tab4')">รายละเอียด</a> -->
+    </div>
+
+    <div ng-if="currenttab == 'tab1'">
+      <div class="list">
+        <div>
+          <a class="item">
+            <div style="font-weight: bold">ใบเสนอราคา</div>
+            <p>{{vm.sqmstr.sq_nbr}}</p>
+          </a>
+
+          <a class="item">
+            <div>ลูกค้า</div>
+            <p>{{vm.sqmstr.sq_desc}}</p>
+          </a>
+
+          <div>
+            <a class="item item-icon-left">
+              <i class="icon ion-clipboard"></i>
+              <div>เอกสารถึง</div>
+
+              <p>{{vm.sqmstr.sq_desc}}</p>
+            </a>
+
+            <a class="item item-icon-left">
+              <i class="icon ion-paper-airplane"></i>
+              <div>ส่งถึง</div>
+              <p>{{vm.sqmstr.sq_desc}}</p>
+            </a>
+
+            <a class="item">
+              <div>เลขที่โอกาสการขาย</div>
+              <p>{{vm.sqmstr.sq_os_nbr}}</p>
+            </a>
+          </div>
+
+          <a class="item">
+            <div>กำหนดราคา</div>
+            <p>{{vm.sqmstr.sq__dte01}}</p>
+          </a>
+
+          <a class="item">
+            <div>สกุลเงิน</div>
+            <p>{{vm.sqmstr.sq_curr}}</p>
+          </a>
+          <a class="item">
+            <div>เงื่อนไข</div>
+            <p>{{vm.sqmstr.sq_inv}}</p>
+          </a>
+          <a class="item">
+            <div>ภาษีมูลค่าเพิ่ม</div>
+            <p>{{vm.sqmstr.sq_taxc}}</p>
+          </a>
+
+          <a class="item">
+            <div>หมายเหตุ</div>
+            <p>{{vm.sqmstr.sq_rmks ? vm.sqmstr.sq_rmks : '-'}}</p>
+          </a>
+        </div>
+      </div>
+      <div style="height: 50px"></div>
+    </div>
+
+    <div ng-if="currenttab == 'tab2'">
+      <div class="list">
+        <div class="item" ng-repeat="x in   vm.item  | filter:searchPart">
+          <div style="font-weight: bold">
+            {{$index+1}}. {{x.sqd_part}}/{{x.sqd_desc}}
+          </div>
+
+          <div>จำนวน : {{x.sqd_ord_qty | number}}</div>
+          <div>ราคาต่อหน่วย : {{x.sqd_price | number : 2}} </div>
+          <div ng-if="x.sqd_type == 'Discount Amount'">
+            ส่วนลด : {{x.sqd_discount | number : 2}} 
+          </div>
+          <div ng-if="x.sqd_type == 'Discount Percent'">
+            ส่วนลด : ({{x.sqd_discount | number : 2}} %)
+          </div>
+          <div>รวม : {{x.sqd_total | number : 2}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 50px"></div>
+  </ion-content>
+  <div
+  ng-if="currenttab == 'tab2'"
+    style="
+      align-items: center;
+      padding: 20px;
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      font-size: medium;
+      border-top-width: 1pt;
+      border-style: solid;
+      border-color: ghostwhite;
+    "
+  >
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      "
+    >
+      <div>รวมมูลค่า</div>
+      <div style="font-weight: bold">{{vm.sqmstr.sq_amt | number : 2}}</div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      "
+    >
+      <div>ส่วนลด</div>
+      <div style="font-weight: bold">
+        {{vm.sqmstr.sq_discount_amount * -1 | number : 2}}
+      </div>
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      "
+    >
+      <div>รวมมูลค่าสุทธิ</div>
+      <div style="font-weight: bold">{{vm.sqmstr.sq_total | number : 2}}</div>
+    </div>
+  </div>
+
+  <script id="cm-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalCm()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchText">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.data.result | filter:searchText" ng-click="selectCm(x)">
+            <p>{{x.cm_addr}}</p>
+
+            <h2>{{x.cm_sort}}</h2>
+          </a>
+
+
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+  <script id="cm-os.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalOs()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchText">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in  vm.oslist.result | filter:searchText" ng-click="selectOs(x)">
+            <p>{{x.os_nbr}} / {{x.cmad_name}}</p>
+
+            <h2>รายการสินค้า : {{x.os_part}}</h2>
+            <h2>มูลค่าโครงการ : {{x.os_amt | number}} บาท</h2>
+
+
+
+
+          </a>
+
+
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <script id="add-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalAdd()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content style="background-color: #fafafa;" >
+        <ion-slide-box ng-init="lockSlide()" style="width: 100%;height: auto;" show-pager="false">
+              <ion-slide>
+                <div class="list">
+
+                  <div class="item item-icon-right "
+                    ng-style="toggleList.T1 && {'background-color': '#D9D9D9'}"  ng-click="vm.selectAndNext()">
+                    <i class="icon ion-ios-arrow-right" ng-if="toggleList.T1 == false"></i>
+                    <i class="icon ion-ios-arrow-down" ng-if="toggleList.T1 == true"></i>
+
+                    เลือกจากรายการ
+                  </div>
+                </div>
+
+
+
+
+                <div class="list">
+
+
+                  <div ng-if="vm.partSelect">
+                    <a class="item ">
+                      <p ng-if="vm.partSelect">{{vm.partSelect.pt_part}}</p>
+                      <p ng-if="vm.partSelect">{{vm.partSelect.pt_desc1}}</p>
+
+                    </a>
+
+                  <label class="item item-input">
+                    <span class="input-label">จำนวน <span style="color:red">*</span></span>
+                    <input type="number"   ng-model="vm.itemAdd.qty" ng-change="qtyChange(vm.itemAdd.qty)" style="text-align:right">
+                  </label>
+                  <label class="item item-input">
+                    <span class="input-label">ราคา/หน่วย<span style="color:red">*</span></span>
+                    <input type="number" ng-model="vm.itemAdd.price" ng-change="priceChange(vm.itemAdd.price)" style="text-align:right">
+                  </label>
+                  <div style="display:flex"  ng-show="vm.itemAdd.qty && vm.itemAdd.price">
+
+                    <label class="item item-input">
+                      <span class="input-label">ส่วนลด/บาท</span>
+                      <input type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  style="text-align:right" ng-disabled="!vm.itemAdd.qty && !vm.itemAdd.price" ng-model="vm.itemAdd.disbath" ng-change="disbathChange(vm.itemAdd.disbath)">
+                    </label>
+                    <label class="item item-input">
+                      <span class="input-label">ส่วนลด/%</span>
+                      <input type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  style="text-align:right" ng-disabled="!vm.itemAdd.qty && !vm.itemAdd.price" ng-model="vm.itemAdd.dispct" ng-change="dispctChange(vm.itemAdd.dispct)">
+                    </label>
+                  </div>
+
+
+                  <div class="item " style="display:flex;justify-content: space-between;">
+                    <div>รวม</div>
+                    <p>{{vm.itemAdd.total | number}}</p>
+
+                  </div>
+
+                </div>
+
+                <button class="button button-block button-balanced ion-chevron-right icon-right" ng-click="confirmitem()" ng-if="vm.partSelect"
+                ng-disabled="!vm.itemAdd.total">
+                  ยืนยัน
+                </button>
+
+
+                </div>
+
+
+
+
+              </ion-slide >
+
+
+              <ion-slide style="background-color: white;">
+
+                  <div class="list">
+                    <div class="list list-inset">
+                      <label class="item item-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" placeholder="Search" ng-model="searchPart">
+                      </label>
+                    </div>
+
+                    <a class="item" ng-repeat="x in vm.partItem.result | filter:searchPart" ng-click="selectPart(x)">
+                      <p>{{x.pt_part}}</p>
+
+                      <h2>{{x.pt_desc1}}</h2>
+
+                    </a>
+
+
+                </div>
+
+              </ion-slide >
+            </ion-slide-box  >
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <script id="part-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalPart()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchPart">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.partItem.result | filter:searchPart" ng-click="selectPart(x)">
+            <p>{{x.pt_part}}</p>
+
+            <h2>{{x.pt_desc1}}</h2>
+
+          </a>
+
+
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

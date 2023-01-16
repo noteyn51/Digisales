@@ -1,0 +1,71 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <!-- <ion-nav-buttons side="left">
+      <button class="button  button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+        Back</button>
+    </ion-nav-buttons> -->
+  <ion-nav-title>ค้นหาคลังสินค้า
+  </ion-nav-title>
+
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lis .card {
+      margin: 2px;
+    }
+
+    .kk .spinner svg {
+      width: 100px;
+      height: 50px;
+    }
+
+  </style>
+  </style>
+
+  <ion-content style="background:#f5f5f5;">
+
+    <div class="lis" >
+      <div class="row">
+        <div class="col-6 col-md-4" ng-repeat="x in vm.list.result" style="padding: 0px; margin-bottom: 5px;">
+          <div class="card" style="box-shadow: none; height: 100%;" ng-click="vm.edit(x)">
+            <img ng-if="x.pic[0].path" class="img-formart" ng-src="{{x.pic[0].path}}" />
+            <img ng-if="!x.pic[0].path" class="img-formart" src="img/noimage2.png" />
+
+            <div class="item item-body">
+              <div style="font-size: small;">สินค้า 0001</div>
+              <div style="font-size: small;">site : 10</div>
+              <div style="font-size: small;">location : 10</div>
+              <div style="font-size: small;">qty : 10 UM</div>
+
+
+
+              <!-- <div style="font-size: small;" ng-if="x.ml_price == '-'"><a style="font-size: larger;">{{x.ml_price}} </a></div> -->
+              <!-- <div style="font-size: small;" ng-if="x.ml_price != '-'">
+                <a style="color: green; font-size: larger;">{{x.ml_price_unit | number}} บาท
+                </a>
+                / {{x.ml_unit_price}}
+              </div> -->
+
+ 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-view>

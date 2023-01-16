@@ -1,0 +1,664 @@
+<ion-view hide-back-button="false" cache-view="ture">
+  <ion-nav-title>เพิ่มรายการสินค้า</ion-nav-title>
+  <ion-nav-buttons side="right"> </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+
+  <ion-content style="background-color: rgba(245, 245, 246, 1)" scroll="false">
+    <div style="display: flex; flex-direction: column; height: 100%">
+      <div
+        style="
+          width: 100%;
+          /* height: 50px; */
+          border-color: rgb(211, 211, 220);
+          border-style: solid;
+          border-bottom-width: 0.1px;
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+          background-color: white;
+        "
+      >
+        <div style="display: flex; flex-direction: row; overflow: hidden">
+          <div style="flex: 1">รหัสสินค้า</div>
+          <p
+            style="
+              overflow: hidden;
+              text-overflow: ellipsis;
+              flex: 3;
+              white-space: nowrap;
+              text-align: right;
+            "
+          >
+            {{model.item.pt_part}}
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: row; overflow: hidden">
+          <div style="flex: 1">รายละเอียด</div>
+          <p
+            style="
+              overflow: hidden;
+              text-overflow: ellipsis;
+              flex: 3;
+              white-space: nowrap;
+              text-align: right;
+            "
+          >
+            {{model.item.pt_desc1}}
+          </p>
+        </div>
+
+        <div style="display: flex; flex-direction: row; overflow: hidden">
+          <div style="flex: 1">หน่วยนับ</div>
+          <p
+            style="
+              overflow: hidden;
+              text-overflow: ellipsis;
+              flex: 3;
+              white-space: nowrap;
+              text-align: right;
+            "
+          >
+            {{model.item.pt_um}}
+          </p>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          flex: 5;
+          overflow: scroll;
+          height: 500px;
+          flex-direction: column;
+          background-color: white;
+          /* padding:20px */
+        "
+      >
+        <div class="list">
+          <form name="myForm">
+            <div class="item item-divider" style="font-weight: bold">
+              กำหนดราคา
+            </div>
+            <!-- <label class="item item-input">
+              <span class="input-label">หน่วยนับ</span>
+              <input
+                type="text"
+                class="text-right"
+                ng-model="model.item.pt_um"
+                ng-change="valueChange()"
+              />
+            </label> -->
+            <label class="item item-input">
+              <span class="input-label">ราคาต่อหน่วย</span>
+              <input
+                type="text"
+                oninput="this.value = this.value.replace(/[^/^0+/0-9.]/g, '').replace(/^(?!0$)0+/, '')"
+                class="text-right"
+                inputmode="decimal"
+                ng-model="model.item.price"
+                ng-change="valueChange()"
+                placeholder="ระบุราคาต่อหน่วย"
+                required
+              />
+            </label>
+
+            <label
+              class="item item-input"
+              style="background-color: beige; padding-left: 50px"
+            >
+              <span class="input-label" style="font-weight: bold"
+                >รวมมูลค่า</span
+              >
+              <input
+                type="text"
+                class="text-right"
+                disabled="true"
+                style="background-color: transparent; font-weight: bold"
+                value="{{model.item.total | number}}"
+                required
+              />
+            </label>
+            <label class="item item-input">
+              <span class="input-label">ส่วนลด %</span>
+              <input
+                type="text"
+                class="text-right"
+                inputmode="decimal"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                ng-model="model.item.discount"
+                ng-change="valueChange()"
+                placeholder="ระบุส่วนลด %"
+                min="0"
+                max="100"
+              />
+            </label>
+
+            <label
+              class="item item-input"
+              style="background-color: beige; padding-left: 50px"
+            >
+              <span class="input-label" style="font-weight: bold"
+                >มูลค่าส่วนลด</span
+              >
+              <input
+                type="text"
+                class="text-right"
+                value="{{model.item.discountValue | number}}"
+                disabled="true"
+                style="background-color: transparent; font-weight: bold"
+              />
+            </label>
+            <label
+              class="item item-input"
+              style="background-color: beige; padding-left: 50px"
+            >
+              <span class="input-label" style="font-weight: bold"
+                >ราคาต่อหน่วยหลังหักส่วนลด</span
+              >
+              <input
+                type="text"
+                class="text-right"
+                disabled="true"
+                style="background-color: transparent; font-weight: bold"
+                value="{{model.item.totalAfterDiscount | number}}"
+              />
+            </label>
+          </form>
+
+          <div class="item item-divider" style="font-weight: bold">วันที่</div>
+          <label class="item item-input">
+            <span class="input-label">วันที่ใบขอซื้อ</span>
+            <input
+              type="text"
+              class="text-right"
+              value="{{model.item.so_date.des.long_desc}}"
+              disabled="true"
+              style="background-color: transparent"
+            />
+          </label>
+          <label class="item item-input">
+            <span class="input-label">วันที่สัญญา</span>
+            <input
+              type="text"
+              class="text-right"
+              value="{{model.item.promise_date.des.long_desc}}"
+              disabled="true"
+              style="background-color: transparent"
+            />
+          </label>
+          <label class="item item-input">
+            <span class="input-label">วันที่ตั้งราคา</span>
+            <input
+              type="text"
+              class="text-right"
+              value="{{model.item.setprice_date.des.long_desc}}"
+              disabled="true"
+              style="background-color: transparent"
+            />
+          </label>
+          <label class="item item-input">
+            <span class="input-label">วันครบกำหนด</span>
+            <input
+              type="text"
+              class="text-right"
+              value="{{model.item.due_date.des.long_desc}}"
+              disabled="true"
+              style="background-color: transparent"
+            />
+          </label>
+
+          <div style="padding-left: 20px">
+            <div layout="row" layout-align="space-between center">
+              <span>บัญชีขายสินค้า</span>
+              <md-select
+                ng-model="model.item.sod_acct"
+                ng-model-options="{trackBy: '$value.value'}"
+                placeholder="เลือกบัญชีขายสินค้า"
+                class="md-no-underline"
+                style="margin: 10px"
+              >
+                <md-option ng-repeat="j in select.sale_account" ng-value="j"
+                  >{{j.des }}</md-option
+                >
+              </md-select>
+            </div>
+          </div>
+          <md-divider></md-divider>
+
+          <div style="padding-left: 20px">
+            <div layout="row" layout-align="space-between center">
+              <span>ศูนย์ต้นทุนขายสินค้า</span>
+              <md-select
+                ng-model="model.item.sod_cc"
+                ng-model-options="{trackBy: '$value.value'}"
+                placeholder="เลือกศูนย์ต้นทุนขายสินค้า"
+                class="md-no-underline"
+                style="margin: 10px"
+              >
+                <md-option ng-repeat="j in select.cost_center" ng-value="j"
+                  >{{j.des }}</md-option
+                >
+              </md-select>
+            </div>
+          </div>
+          <md-divider></md-divider>
+
+          <div class="item item-divider" style="font-weight: bold">
+            สถานที่จัดเก็บ
+          </div>
+          <div style="padding-left: 20px">
+            <div layout="row" layout-align="space-between center">
+              <span>สถานที่จัดเก็บ</span>
+              <md-select
+                ng-model="model.item.sod_site"
+                ng-model-options="{trackBy: '$value.value'}"
+                placeholder="เลือกสถานที่จัดเก็บ"
+                class="md-no-underline"
+                style="margin: 10px"
+              >
+                <md-option ng-repeat="j in select.site" ng-value="j"
+                  >{{j.des }}</md-option
+                >
+              </md-select>
+            </div>
+          </div>
+          <md-divider></md-divider>
+          <div style="padding-left: 20px">
+            <div layout="row" layout-align="space-between center">
+              <span>พื้นที่จัดเก็บ</span>
+              <md-select
+                ng-model="model.item.sod_loc"
+                ng-model-options="{trackBy: '$value.value'}"
+                placeholder="เลือกพื้นที่จัดเก็บ"
+                class="md-no-underline"
+                style="margin: 10px"
+              >
+                <md-option ng-repeat="j in select.location" ng-value="j"
+                  >{{j.des }}</md-option
+                >
+              </md-select>
+            </div>
+          </div>
+          <md-divider></md-divider>
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>ล๊อต/ซีเรียล</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนล๊อต/ซีเรียล"
+                ng-model="model.item.sod_serial"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>สถานะ</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนสถานะ"
+                ng-model="model.item.status"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>จำนวนที่จอง</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนจำนวนที่จอง"
+                ng-model="model.item.sod_qty_all"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>จำนวนที่ส่ง</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนจำนวนที่ส่ง"
+                ng-model="model.item.sod_qty_ship"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>ประเภท</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนประเภท"
+                ng-model="model.item.sod_type"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+          <div class="item item-divider" style="font-weight: bold">
+            โครงการ / งานชุบ / PO
+          </div>
+
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>โครงการ/งานชุบ/PO</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนโครงการ"
+                ng-model="model.item.sod_project"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+
+          <div style="padding-left: 20px">
+            <label
+              class="item item-input"
+              style="
+                margin: 0px;
+                border: 0px;
+                background: transparent;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 0px;
+                padding-right: 0px;
+              "
+            >
+              <span class="input-label">
+                <span>ขนาด</span>
+              </span>
+              <input
+                type="text"
+                placeholder="ป้อนขนาด"
+                ng-model="model.item.size"
+                style="text-align: right"
+              />
+            </label>
+          </div>
+          <md-divider></md-divider>
+          <label
+            class="item item-input"
+            style="background-color: beige; padding-left: 50px"
+          >
+            <span class="input-label">หน่วยนับ</span>
+            <input
+              type="text"
+              class="text-right"
+              disabled="true"
+              style="background-color: transparent"
+            />
+          </label>
+          <label
+            class="item item-input"
+            style="background-color: beige; padding-left: 50px"
+          >
+            <span class="input-label">จำนวนหน่วยนับในคลังสินค้า</span>
+            <input
+              type="text"
+              class="text-right"
+              disabled="true"
+              style="background-color: transparent"
+            />
+          </label>
+          <label class="item item-input">
+            <span class="input-label">น้ำหนักสุทธิ</span>
+            <input
+              type="text"
+              class="text-right"
+              ng-model="model.item.sod__dec01"
+              placeholder="ป้อนน้ำหนักสุทธิ"
+            />
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">น.น.เดิม</span>
+            <input
+              type="text"
+              class="text-right"
+              ng-model="model.item.sod__dec02"
+              placeholder="ป้อนน้ำหนักเดิม"
+            />
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">ปริมาตรสุทธิ</span>
+            <input
+              type="text"
+              class="text-right"
+              ng-model="model.item.total_volume"
+              placeholder="ป้อนปริมาตรสุทธิ"
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        style="
+          display: flex;
+          height: 150px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          transition: 0.3s;
+          background-color: white;
+          border-top: 1pt;
+          border-style: solid;
+          border-color: rgb(193 193 193);
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            width: 100%;
+            position: relative;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding-bottom: 5px;
+            justify-content: center;
+          "
+        >
+          <div style="flex-direction: row; display: flex">
+            <div
+              style="
+                flex: 3;
+                display: flex;
+                flex-direction: row;
+                /* margin-top: 10px; */
+                position: relative;
+                align-items: center;
+                max-height: 70px;
+                height: 70px;
+                text-align: center;
+                justify-content: space-around;
+                color: white;
+                padding-left: 20px;
+                padding-right: 20px;
+                border-radius: 20px;
+              "
+            >
+              <div>
+                <button
+                  ng-click="minusQty()"
+                  class="button button-dark button-icon ion-minus button-outline"
+                  style="min-height: 50px; width: 50px; border-radius: 50px"
+                ></button>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder="จำนวน"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                  inputmode="decimal"
+                  ng-model="model.item.qty"
+                  style="
+                    min-height: 50px;
+                    text-align: center;
+                    font-size: 14pt;
+                    width: 100%;
+                  "
+                  ng-change="valueChange()"
+                />
+              </div>
+              <div>
+                <button
+                  ng-click="plusQty()"
+                  class="button button-dark button-icon ion-plus button-outline"
+                  style="min-height: 50px; width: 50px; border-radius: 50px"
+                ></button>
+              </div>
+            </div>
+
+            <!-- <button style="flex:1" class="button button-assertive button-icon ion-trash">asdasd</button>\ -->
+
+            <div
+              style="
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div>
+                <button
+                  ng-click="removeItem()"
+                  class="button button-assertive icon ion-trash-a"
+                  style="min-height: 50px; width: 50px"
+                ></button>
+              </div>
+            </div>
+            <!-- <button class="button button-assertive button-icon ion-trash">
+          </button> -->
+          </div>
+
+          <button
+            ng-disabled="model.item.netValue <= 0"
+            class="button button-balanced"
+            ng-click="goBack();"
+            style="
+              display: flex;
+              flex-direction: row;
+              margin-bottom: 10px;
+              margin-top: 10px;
+              position: relative;
+              align-items: center;
+              justify-content: space-between;
+              max-height: 70px;
+              height: 70px;
+              text-align: center;
+              /* background-color: #33cd5f; */
+              color: white;
+              padding-left: 20px;
+              padding-right: 20px;
+              border-radius: 20px;
+            "
+          >
+            <div style="font-size: 10pt; font-weight: bold">แก้ไขรายการ</div>
+            <div style="font-size: 14pt; font-weight: bold">
+              {{model.item.netValue | number : 2}} ฿
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,39 @@
+<ion-view hide-back-button="true" hide-nav-bar="false" cache-view="false">
+  <ion-nav-title>แจ้งเตือน </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button
+      type="button"
+      class="button button-clear button-positive"
+      ng-click="add()"
+      ng-if="path === '/post/post/menupostpect2'"
+    >
+      เพิ่มลูกค้า +
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <div class="list">
+      <div
+        class="item item-text-wrap"
+        ng-repeat="x in notificationlist"
+        ng-click="notiClick(x)"
+        ng-style="x.noti_status_read == 0 ? {'background-color':'aliceblue'} :{'background-color':'none'} "
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
+        >
+          <div style="font-weight: bold; font-size: 12pt">{{x.title}}</div>
+          <div style="color: gray; font-size: small">
+            {{x.date.sub_desc}} {{x.date.time}}
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; color: gray">{{x.desc}}</div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

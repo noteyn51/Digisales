@@ -1,0 +1,452 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <!-- <ion-nav-buttons side="left">
+        <button class="button  button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+          Back</button>
+      </ion-nav-buttons> -->
+  <ion-nav-title>เพิ่มโอกาสการขาย</ion-nav-title>
+
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .navBardemoBasicUsage md-content .ext-content {
+      padding: 50px;
+      margin: 20px;
+      background-color: #fff2e0;
+    }
+
+    .bottomSheetdemoBasicUsage .md-inline-list-icon-label {
+      display: inline-block;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: -10px;
+      height: 24px;
+      vertical-align: middle;
+    }
+    .bottomSheetdemoBasicUsage .md-grid-item-content {
+      height: 90px;
+      padding-top: 10px;
+    }
+    .bottomSheetdemoBasicUsage .md-grid-item-content md-icon {
+      height: 48px;
+      width: 48px;
+    }
+    .bottomSheetdemoBasicUsage .md-grid-text {
+      padding-bottom: 5px;
+    }
+    .bottomSheetdemoBasicUsage md-list-item,
+    .bottomSheetdemoBasicUsage md-list-item .md-list-item-inner {
+      min-height: 48px;
+    }
+    .bottomSheetdemoBasicUsage h2 {
+      line-height: 36px;
+      padding-top: 10px;
+    }
+    .bottomSheetdemoBasicUsage .md-subheader .md-subheader-inner {
+      padding: 0;
+    }
+    .bottomSheetdemoBasicUsage md-toast .md-toast-content {
+      background-color: #b14141;
+    }
+    .bottomSheetdemoBasicUsage md-toast > * {
+      font-weight: bolder;
+    }
+  </style>
+
+  <ion-content>
+    <!-- <script id="bottom-sheet-list-template.html" type="text/ng-template">
+
+      <md-bottom-sheet class="md-grid" layout="column" style="margin-top:20px;margin-bottom:20px">
+        <div ng-cloak>
+          <div style="min-height:200px"></div>
+        </div>
+      </md-bottom-sheet>
+    </script> -->
+
+    <div class="button-bar">
+      <a class="button" ng-click="gotoTab('tab1')">ข้อมุล</a>
+      <a class="button" ng-click="gotoTab('tab2')">ติดต่อ</a>
+      <a class="button" ng-click="gotoTab('tab3')">ที่อยู่</a>
+      <a class="button" ng-click="gotoTab('tab4')">รายละเอียด</a>
+    </div>
+
+    <div ng-if="currenttab == 'tab1'">
+      <div class="list">
+        <div>
+          <a
+            class="item item-icon-right"
+            ng-click="openModalCm()"
+            style="padding: 5px 10px 5px 15px"
+          >
+            <span class="input-label" style="font-weight: bold">ลูกค้า <span style="color: red">*</span></span>
+
+            <i class="icon ion-arrow-down-b" style="font-size: 18px"></i>
+
+            <p ng-if="!vm.cmselect">เลือกลูกค้า</p>
+            <p ng-if="vm.cmselect">
+              {{vm.cmselect.cm_addr}}
+              <span ng-if="vm.cmad_det.ucm_addr">(Y)</span>
+            </p>
+
+            <p ng-if="vm.cmselect">{{vm.cmselect.cm_sort}}</p>
+          </a>
+
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label" style="font-weight: bold"
+                >รายละเอียดโครงการ <span style="color: red">*</span></span
+              >
+              <input
+                type="text"
+                ng-model="model.projectdesc"
+                placeholder="รายละเอียดโครงการ"
+              />
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label" style="font-weight: bold"
+                >มูลค่าโครงการ<span style="color: red">*</span></span
+              >
+              <input
+                type="text"
+                ng-model="model.projectval"
+                placeholder="มูลค่าโครงการ"
+              />
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label" style="font-weight: bold"
+                >คาดว่าปิดโครงการภายใน (วัน)<span style="color: red"
+                  >*</span
+                ></span
+              >
+              <input
+                type="text"
+                ng-model="model.mandays"
+                placeholder="คาดว่าปิดโครงการภายใน (วัน)"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                ng-change="mandayChange(model.mandays)"
+              />
+            </label>
+            <div
+              class="alert alert-primary"
+              role="alert"
+              style="margin: 10px; text-align: center"
+              ng-if="model.mandays"
+            >
+              * {{datedesc}} *
+            </div>
+            <a
+              class="item item-icon-right"
+              ng-click="openModalPart()"
+              style="padding: 5px 10px 5px 15px"
+            >
+              <span class="input-label" style="font-weight: bold">สินค้า <span style="color: red">*</span></span>
+              <i class="icon ion-arrow-down-b" style="font-size: 18px"></i>
+              <p ng-if="!vm.partSelect">เลือกสินค้า</p>
+              <p ng-if="vm.partSelect">{{vm.partSelect.pt_part}}</p>
+              <p ng-if="vm.partSelect">{{vm.partSelect.pt_desc1}}</p>
+            </a>
+
+
+            
+          <div ng-if="vm.cmselect">
+            <a class="item">
+              <div>เลขที่โอกาสการขาย</div>
+              <p>{{vm.os_num}}</p>
+            </a>
+  
+
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">สถานะ</span>
+              <div
+                class="row"
+                style="
+                  text-align: center;
+                  margin-left: 0px;
+                  margin-bottom: -10px;
+                  position: relative;
+                "
+              >
+                <div class="col">
+                  <div class="form-group">
+                    <select
+                      class="form-control"
+                      ng-options="item as item.os_desc for item in vm.os_status track by item.os_code"
+                      ng-model="vm.osSelect"
+                    ></select>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+
+    
+          </div>
+
+
+          <!-- <a class="item" ng-if="vm.ar_amt.ar_amt">
+            <p ng-if="vm.ar_amt">วงเงินค้างชำระ</p>
+
+            <p ng-if="vm.ar_amt">{{vm.ar_amt.ar_amt | number}}</p>
+          </a> -->
+
+
+          <!-- {{vm.osSelect.os_code}} -->
+
+          <label class="item item-input" ng-if="vm.osSelect.os_code == 6">
+            <span class="input-label"
+              >หมายเหตุ(Loss)<span style="color: red">*</span></span
+            >
+            <input
+              type="text"
+              style="text-align: right"
+              ng-model="model.comment"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="currenttab == 'tab2'">
+      <div class="item">
+        <div class="dp-flex">
+          <a style="font-weight: bold">ชื่อ-ผู้ติดต่อ</a
+          ><a
+            style="
+              width: 60%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: right;
+            "
+            >{{vm.cmad_det.cmad_attn}}</a
+          >
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">มือถือ</a>
+          <a
+            style="
+              width: 60%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: right;
+            "
+            >{{vm.cmad_det.cmad_phone}}</a
+          >
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">อีเมล์</a
+          ><a>{{vm.cmad_det.cmad_email}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">เว็บ</a
+          ><a>{{vm.cmad_det.cmad_email2}}</a>
+        </div>
+
+        <div class="dp-flex">
+          <a style="font-weight: bold">social</a
+          ><a>{{vm.cmad_det.cmad_fax2}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">line-id</a
+          ><a>{{vm.cmad_det.cmad_lineid}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">skype</a><a>{{vm.cmad_det.cmad_skid}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">IG</a><a>{{vm.cmad_det.cmad_igid}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="currenttab == 'tab3'">
+      <div class="item">
+        <div class="dp-flex">
+          <a style="font-weight: bold">บ้านเลขที่</a>
+          <a
+            style="
+              width: 60%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: right;
+            "
+            >{{vm.cmad_det.cmad_add_no}}</a
+          >
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">หมู่</a
+          ><a>{{vm.cmad_det.cmad_moo_no}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">ชื่อหมู่บ้าน</a
+          ><a>{{vm.cmad_det.cmad_moo_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">ห้องเลชที่</a
+          ><a>{{vm.cmad_det.cmad_room_no}}</a>
+        </div>
+
+        <div class="dp-flex">
+          <a style="font-weight: bold">ชั้น</a
+          ><a>{{vm.cmad_det.cmad_floor_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">ชื่ออาคาร</a
+          ><a>{{vm.cmad_det.cmad_build_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">ตรอก/ซอย</a
+          ><a>{{vm.cmad_det.cmad_build_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">ถนน</a><a>{{vm.cmad_det.cmad_street}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">แขวง/ตำบล</a
+          ><a>{{vm.cmad_det.cmad_tumbol_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">เขต/อำเภอ</a
+          ><a>{{vm.cmad_det.cmad_amphur_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">จังหวัด</a
+          ><a>{{vm.cmad_det.cmad_city}}</a>
+        </div>
+
+        <div class="dp-flex">
+          <a style="font-weight: bold">รหัสไปรษณีย์</a
+          ><a>{{vm.cmad_det.cmad_zip}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">ประเทศ</a
+          ><a>{{vm.cmad_det.cmad_country}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold">พิกัด</a
+          ><a>{{vm.cmad_det.cmad_latitude}} ,{{vm.cmad_det.cmad_longitude}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="currenttab == 'tab4'">
+      <div class="list">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input
+              type="text"
+              placeholder="รายละเอียด"
+              ng-model="commentText"
+            />
+          </label>
+          <button
+            class="button button-small"
+            ng-click="addComment(commentText)"
+          >
+            เพิ่ม
+          </button>
+        </div>
+
+        <div class="list list-inset">
+          <div class="item item-button-right" ng-repeat="x in commentlist">
+            {{x.desc}}
+            <button
+              class="button button-assertive"
+              ng-click="deleteComment($index)"
+            >
+              <i class="icon ion-trash-a"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 50px"></div>
+  </ion-content>
+  <div style="position: absolute; bottom: 0px; width: 100%; background: white">
+    <div style="text-align: center; padding-left: 10px; padding-right: 10px">
+      <button
+        class="button button-block button-balanced"
+        ng-click="createos()"
+      >
+        ยืนยัน
+      </button>
+    </div>
+  </div>
+
+  <script id="cm-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalCm()">ปิด</button>
+        <h1 class="title" style="text-align:center" >ลูกค้า</h1>
+        <button type="button" class="button button-positive  button-clear" ng-click="vm.addPP()" >เพิ่ม</button>
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchText">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.data.result | filter:searchText" ng-click="selectCm(x)">
+            <p>{{x.cm_addr}}</p>
+
+            <h2>{{x.cm_sort ? x.cm_sort : 'ไม่มีชื่อ'}}</h2>
+
+          </a>
+
+
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <script id="part-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalPart()">ปิด</button>
+        <h1 class="title" style="text-align:center" >สินค้า</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchPart">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.partItem.result | filter:searchPart | limitTo:100" ng-click="selectPart(x)">
+            <p>{{x.pt_part}}</p>
+
+            <h2>{{x.pt_desc1}}</h2>
+
+          </a>
+
+
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

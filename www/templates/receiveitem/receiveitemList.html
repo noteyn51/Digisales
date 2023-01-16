@@ -1,0 +1,80 @@
+<ion-view hide-back-button="false" cache-view="false">
+  <!-- <ion-nav-buttons side="left">
+        <button class="button  button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+          Back</button>
+      </ion-nav-buttons> -->
+  <ion-nav-title>รายการฝากคืนสินค้า
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button type="button" class="button button-clear button-positive" ng-click="soAdd()">
+      เพิ่ม
+    </button>
+  </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+  </style>
+
+  <!-- <button class="button button-balanced icon ion-levels" style="position: absolute;
+z-index: 999;
+bottom: 10%;
+right: 5%;
+border-radius: 50%;
+height: 70px;
+width: 70px;" ng-click="openModalFilter()"></button> -->
+
+
+
+
+  <ion-content style="background:#f5f5f5">
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="vm.searchText">
+      </label>
+    </div>
+
+    <!-- <div><button class="button button-assertive"> click</button></div> -->
+
+
+    <div class="list">
+
+
+      <a class="item " ng-repeat="x in vm.sq_list.result |  filter:vm.searchText" ng-click="vm.sqEdit(x)">
+        <h2>{{x.sq_nbr}}</h2>
+        <p>{{x.sq_desc}}</p>
+        <p>จำนวนสินค้า : {{x.counts | number}} รายการ</p>
+
+        <p>{{x.sq_date}}</p>
+
+      </a>
+
+
+
+
+    </div>
+
+
+
+
+  </ion-content>
+
+
+
+
+</ion-view>

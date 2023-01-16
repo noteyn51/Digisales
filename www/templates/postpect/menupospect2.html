@@ -1,0 +1,61 @@
+<ion-view hide-back-button="true" cache-view="false">
+  <ion-nav-buttons side="left">
+      <button class="button button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+        Back</button>
+    </ion-nav-buttons>
+  <ion-nav-title>ลูกค้าเป้าหมาย
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button type="button" class="button button-clear button-positive" ng-click="add()">
+      เพิ่มลูกค้า +
+    </button>
+  </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+  </style>
+
+  <ion-content style="background:#f5f5f5;">
+
+    <table class="table">
+      <tr>
+        <th>Company</th>
+        <th>Contact</th>
+        <th>Tel</th>
+        <th>Mobile</th>
+
+      </tr>
+      <tr ng-repeat="x in vm.data.result"ng-click="vm.edit(x)">
+        <td>{{ x.cmad_name }}</td>
+        <td>{{ x.cmad_name }}</td>
+        <td>{{ x.cmad_phone }}</td>
+        <td>{{ x.cmad_phone2 }}</td>
+
+
+      </tr>
+    </table>
+
+    <div style="height:50px"></div>
+
+
+
+
+
+
+  </ion-content>
+
+</ion-view>

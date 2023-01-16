@@ -1,0 +1,62 @@
+<ion-view hide-back-button="false" cache-view="false">
+  <ion-nav-buttons side="left">
+    <button
+      class="button button-clear button-dark ion-chevron-left"
+      ng-click="vm.goBack()"
+    >
+      Back
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    {{path === '/post/post/menupostpect2' ? 'ลูกค้ารออนุมัติ' : 'ลูกค้าของฉัน'}}
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button
+      type="button"
+      class="button button-clear button-positive"
+      ng-click="add()"
+      ng-if="path === '/post/post/menupostpect2'"
+    >
+      เพิ่มลูกค้า +
+    </button>
+  </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+
+  <ion-content style="background: #f5f5f5;padding-bottom: 10px;">
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="vm.searchText">
+      </label>
+    </div>
+
+    <md-list-item class="md-2-line" ng-repeat="item in vm.data.result | filter:vm.searchText" ng-click="vm.edit(item)">
+      <img ng-src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="md-avatar" alt="{{item.who}}" />
+      <div class="md-list-item-text" layout="column">
+        <h3 style="font-weight: bold;">{{ item.cmad_name ? item.cmad_name : 'ไม่ทราบชื่อ'}}</h3>
+        <h4>{{ item.cmad_phone ? item.cmad_phone : 'ไม่ทราบเบอร์โทรศัพท์' }}</h4>
+        <!-- <p>{{ item.cmad_phone2 }}</p> -->
+      </div>
+      <md-divider ></md-divider>
+    </md-list-item>
+    <div style="height: 50px;"></div>
+  
+
+    
+
+  </ion-content>
+</ion-view>

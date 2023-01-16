@@ -1,0 +1,366 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <ion-nav-title>กำหนดข้อมูลใบสั่งขาย </ion-nav-title>
+  <ion-nav-buttons side="right"> </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+    .listincard {
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  </style>
+
+  <ion-content style="background-color: white" scroll="false">
+    <md-content>
+      <md-tabs
+        md-selected="selectedTab"
+        class="md-primary"
+        md-selected="0"
+        md-border-bottom
+        md-autoselect
+        md-swipe-content
+        style="min-height: 94vh"
+      >
+        <md-tab
+          label="ข้อมูลพื้นฐาน"
+          style="max-width: 700px; width: 700px; min-width: 700px"
+        >
+          <md-content class="md-padding">
+            <div class="list">
+              <div ng-repeat="x in baseconfigData">
+                <div ng-if="x.type == 'select'">
+                  <div layout="row" layout-align="space-between center">
+                    <span>{{x.title}}</span>
+                    <md-select
+                      ng-model="x.selected"
+                      ng-model-options="{trackBy: '$value.id'}"
+                      placeholder="เลือก{{x.title}}"
+                      class="md-no-underline"
+                      style="margin: 10px"
+                    >
+                      <md-option ng-repeat="j in x.select" ng-value="j"
+                        >{{j.desc }}</md-option
+                      >
+                    </md-select>
+                  </div>
+                </div>
+
+                <div ng-if="x.type == 'input'">
+                  <label
+                    class="item item-input"
+                    style="
+                      margin: 0px;
+                      border: 0px;
+                      background: transparent;
+                      padding-top: 5px;
+                      padding-bottom: 5px;
+                      padding-left: 0px;
+                      padding-right: 0px;
+                    "
+                  >
+                    <span class="input-label">
+                      <span>{{x.title}}</span>
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="ป้อน{{x.title}}"
+                      ng-model="x.selected.value"
+                      style="text-align: right"
+                    />
+                  </label>
+                </div>
+
+                <md-divider></md-divider>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+        <md-tab label="การเงิน">
+          <md-content class="md-padding">
+            <div class="list">
+              <div ng-repeat="x in financeData">
+                <div layout="row" layout-align="space-between center">
+                  <span>{{x.title}}</span>
+                  <md-select
+                    ng-model="x.selected"
+                    ng-model-options="{trackBy: '$value.id'}"
+                    placeholder="เลือก{{x.title}}"
+                    class="md-no-underline"
+                    style="margin: 10px"
+                  >
+                    <md-option ng-repeat="j in x.select" ng-value="j"
+                      >{{j.desc }}</md-option
+                    >
+                  </md-select>
+                </div>
+                <md-divider></md-divider>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+        <md-tab label="ขนส่ง">
+          <md-content class="md-padding">
+            <div ng-repeat="x in transportData">
+              <div layout="row" layout-align="space-between center">
+                <span>{{x.title}}</span>
+                <md-select
+                  ng-model="x.selected"
+                  ng-model-options="{trackBy: '$value.id'}"
+                  placeholder="เลือก{{x.title}}"
+                  class="md-no-underline"
+                  style="margin: 10px"
+                >
+                  <md-option ng-repeat="j in x.select" ng-value="j"
+                    >{{j.desc }}</md-option
+                  >
+                </md-select>
+              </div>
+              <md-divider></md-divider>
+            </div>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="รายการขาย">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              height: 100%;
+              background-color: rgba(245, 245, 246, 1)
+            "
+          >
+            <md-content  scroll_to_bottom="itemData" style="background-color: rgba(245, 245, 246, 1);
+            position: relative;height: 80%">
+
+              <div ng-repeat="x in itemData" ng-click="removeItem($index)">
+                <div
+                  style="
+                    background-color: white;
+                    margin-bottom: 5px;
+                    padding: 10px;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: flex-start;
+                    "
+                  >
+                    <div style="flex: 8">
+                      <h3 class="md-subhead">{{$index+1}}. Computer</h3>
+                      <div
+                        class="md-body-1"
+                        style="
+                          height: 5ex;
+                          white-space: inherit;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                        "
+                      >
+                        271298237991238129 /
+                        ในปัจจุบันที่การธุรกิจออนไลน์กำลังขยายตัว
+                      </div>
+                    </div>
+
+                    <div style="flex: 2; text-align: center">
+                      <div>{{200000 | number}}</div>
+                      <div>PCS</div>
+                    </div>
+
+                    <div style="flex: 2; text-align: center">
+                      <div>{{2000 | number}}</div>
+                    </div>
+                    <div style="flex: 2; text-align: center">
+                      <div>10%</div>
+                    </div>
+                  </div>
+
+                  <div
+                    style="
+                      margin-bottom: 5px;
+                      border-bottom-width: 0.1px;
+                      border-bottom-color: gray;
+                      border-style: solid;
+                      padding: 10px;
+                    "
+                  ></div>
+                  <div
+                    style="text-align: right; color: black; font-weight: bold"
+                    class="md-body-2"
+                  >
+                    รวมมูลค่าสุทธิ : {{252132 | number}}
+                  </div>
+                </div>
+               <md-divider></md-divider>
+              </div>
+            </md-content>
+
+            <md-content style="position: relative;flex:1;height: 100px;">
+              <div
+                style="
+                  /* height: 100%; */
+                  position: relative;
+                  background-color: white;
+                  display: flex;
+                  flex-direction: column;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: row;
+                    /* height: 100%; */
+                    padding: 5px;
+                    position: relative;
+                  "
+                >
+                  <button
+                    class="button button-outline button-balanced"
+                    style="flex: 4"
+                  >
+                    ส่วนลดท้ายบิล
+                  </button>
+
+                  <button
+                    ng-click="addItem()"
+                    class="button button-icon ion-plus button-outline button-positive"
+                    style="flex: 1; margin-left: 5px"
+                  ></button>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: row;
+                    padding-bottom: 5px;
+
+                    height: 100%;
+                    position: relative;
+                  "
+                >
+                  <button class="button button-balanced" style="flex: 4">
+                    รวมมูลค่าสุทธิ : {{123927323 | number}}
+                  </button>
+                </div>
+              </div>
+            </md-content>
+          </div>
+
+          <!-- <div
+              style="
+              height: 50px;
+                /* border-bottom: 1pt;
+                border-style: solid;
+                border-bottom-width: 0.1px;
+                border-color: gray; */
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background-color: white;
+              "
+            >
+              <div style="flex: 8">
+                <p class="md-body-1">รายการ</p>
+              </div>
+
+              <div style="flex: 2; text-align: center">
+                <div>จำนวน</div>
+              </div>
+
+              <div style="flex: 2; text-align: center">
+                <div>ราคา</div>
+              </div>
+              <div style="flex: 2; text-align: center">
+                <div>ส่วนลด</div>
+              </div>
+            </div>
+            <md-content
+              scroll-to-bottom="itemData"
+              style="background-color: rgba(245, 245, 246, 1); height: 75vh"
+            >
+              <div ng-repeat="x in itemData" ng-click="removeItem($index)">
+                <div
+                  style="
+                    background-color: white;
+                    margin-bottom: 5px;
+                    padding: 10px;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: flex-start;
+                    "
+                  >
+                    <div style="flex: 8">
+                      <h3 class="md-subhead">{{$index+1}}. Computer</h3>
+                      <div
+                        class="md-body-1"
+                        style="
+                          height: 5ex;
+                          white-space: inherit;
+                          text-overflow: ellipsis;
+                          overflow: hidden;
+                        "
+                      >
+                        271298237991238129 /
+                        ในปัจจุบันที่การธุรกิจออนไลน์กำลังขยายตัว
+                      </div>
+                    </div>
+
+                    <div style="flex: 2; text-align: center">
+                      <div>{{200000 | number}}</div>
+                      <div>PCS</div>
+                    </div>
+
+                    <div style="flex: 2; text-align: center">
+                      <div>{{2000 | number}}</div>
+                    </div>
+                    <div style="flex: 2; text-align: center">
+                      <div>10%</div>
+                    </div>
+                  </div>
+
+                  <div
+                    style="
+                      margin-bottom: 5px;
+                      border-bottom-width: 0.1px;
+                      border-bottom-color: gray;
+                      border-style: solid;
+                      padding: 10px;
+                    "
+                  ></div>
+                  <div
+                    style="text-align: right; color: black; font-weight: bold"
+                    class="md-body-2"
+                  >
+                    รวมมูลค่าสุทธิ : {{252132 | number}}
+                  </div>
+                </div>
+               <md-divider></md-divider>
+              </div>-->
+
+          <!-- </md-content> -->
+        </md-tab>
+      </md-tabs>
+    </md-content>
+  </ion-content>
+</ion-view>

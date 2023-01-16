@@ -1,0 +1,407 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <ion-nav-title>รายการขาย </ion-nav-title>
+  <ion-nav-buttons side="right"> </ion-nav-buttons>
+  <style>
+    /* .abc:active {
+      transform: scale(0.8);
+    } */
+  </style>
+
+  <style>
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+  </style>
+
+  <ion-content style="background-color: rgba(245, 245, 246, 1)" scroll="false">
+    <div style="display: flex; flex-direction: column; height: 100%">
+      <div
+        style="
+          width: 100%;
+          height: 50px;
+          border-color: rgb(211, 211, 220);
+          border-style: solid;
+          border-bottom-width: 0.1px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 10px;
+          background-color: white;
+        "
+      >
+        <div style="flex: 8">
+          <p class="md-body-1">รายการ</p>
+        </div>
+
+        <div style="flex: 2; text-align: center">
+          <div>หน่วย</div>
+        </div>
+
+        <div style="flex: 2; text-align: center">
+          <div>จำนวน</div>
+        </div>
+
+        <div style="flex: 2; text-align: center">
+          <div>ราคา</div>
+        </div>
+        <div style="flex: 2; text-align: center">
+          <div>ส่วนลด</div>
+        </div>
+      </div>
+
+      <div
+        scroll_to_bottom="itemData"
+        style="
+          display: flex;
+          flex: 5;
+          overflow: scroll;
+          height: 500px;
+          flex-direction: column;
+        "
+      >
+        <div ng-if="itemData == 0" style="margin-top: 50px">
+          <h3 style="color: gray; text-align: center">
+            ยังไม่ได้เพิ่มรายการสินค้า
+          </h3>
+        </div>
+        <div
+          ng-repeat="x in itemData track by $index"
+          ng-click="editItem($index,x)"
+        >
+          <div
+            style="background-color: white; margin-bottom: 5px; padding: 10px"
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+              "
+            >
+              <div style="flex: 8">
+                <h3 class="md-subhead" style="font-weight: bold">
+                  {{$index+1}}. {{x.item.pt_desc1}}
+                </h3>
+                <div
+                  class="md-body-1"
+                  style="
+                    height: 5ex;
+                    white-space: inherit;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                  "
+                >
+                  {{x.item.pt_part}}
+                </div>
+              </div>
+              <div style="flex: 2; text-align: center">
+                <div>{{x.item.pt_um}}</div>
+              </div>
+              <div style="flex: 2; text-align: center">
+                <div>{{x.item.qty | number}}</div>
+                <!-- <div>{{x.item.pt_um}}</div> -->
+              </div>
+
+              <div style="flex: 2; text-align: center">
+                <div>{{x.item.price | number}}</div>
+              </div>
+              <div style="flex: 2; text-align: center">
+                <div>{{x.item.discount ? x.item.discount +'%': '-'}}</div>
+              </div>
+            </div>
+
+            <div
+              style="
+                margin-bottom: 5px;
+                border-bottom-width: 0.1px;
+                border-color: rgb(211, 211, 220);
+                border-style: solid;
+                /* padding: 10px; */
+              "
+            ></div>
+            <div
+              style="text-align: right; color: black; font-weight: bold"
+              class="md-body-2"
+            >
+              รวมมูลค่าสุทธิ : {{x.item.netValue | number : 2 }} 
+            </div>
+          </div>
+          <md-divider></md-divider>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          /* height: 15px; */
+          padding: 10px 10px 5px 10px;
+          background-color: white;
+        "
+      >
+        <div
+          style="
+            width: 100%;
+            position: relative;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding-bottom: 5px;
+          "
+        >
+     
+        <div style="display: flex; flex-direction: row;justify-content: space-between;" >
+          <div style="color: dodgerblue;
+          font-weight: bold;
+          background-color: aliceblue;
+          border-radius: 15px;
+          padding: 5px 5px 5px 7px;"  ng-click="addItem()">เพิ่มสินค้า +</div>
+          <div style="color: gray;"  ng-click="openModalBill()">แก้ไขส่วนลดท้ายบิล</div>
+        </div>
+          <div style="margin-top:10px;display: flex; flex-direction: row;justify-content: space-between;"  >
+            <div style="font-weight: bold;">รวม</div>
+            <div>{{billTotal.total| number : 2}}</div>
+          </div>
+          <div style="display: flex; flex-direction: row;justify-content: space-between;"  ng-if="billTotal.otherValue ">
+            <div style="font-weight: bold;">ค่าใช้จ่ายเพิ่มเติม</div>
+            <div>{{billTotal.otherValue | number : 2}}</div>
+          </div>
+
+          <div style="display: flex; flex-direction: row;justify-content: space-between;"  >
+            <div style="font-weight: bold;">ส่วนลด</div>
+            <div>{{billTotal.discountValue * -1| number : 2}}</div>
+          </div>
+
+          <div style="display: flex; flex-direction: row;justify-content: space-between;"  >
+            <div style="font-weight: bold;">รวมหลังหักส่วนลด</div>
+            <div>{{billTotal.totalAfterDiscount| number : 2}}</div>
+          </div>
+
+
+          <div style="display: flex; flex-direction: row;justify-content: space-between;"  >
+            <div style="font-weight: bold;">มูลค่าก่อนภาษี</div>
+            <div>{{billTotal.beforeVat| number : 2}}</div>
+          </div>
+
+
+          <div style="display: flex; flex-direction: row;justify-content: space-between;"  >
+            <div style="font-weight: bold;">ภาษีรวม</div>
+            <div>{{billTotal.vatValue| number : 2}}</div>
+          </div>
+   
+
+          <div
+            class="button button-balanced"
+            ng-click="goBack();"
+            style="
+              display: flex;
+              flex-direction: row;
+              margin-bottom: 10px;
+              margin-top: 10px;
+              position: relative;
+              align-items: center;
+              justify-content: space-between;
+              text-align: center;
+              color: white;
+              padding-left: 20px;
+              padding-right: 20px;
+              border-radius: 20px;
+            "
+          >
+            <div style="font-size: 10pt; font-weight: bold">
+              รวมมูลค่าสุทธิ {{itemData.length}} รายการ
+            </div>
+            <div style="font-size: 14pt; font-weight: bold">
+              {{billTotal.netTotal | number : 2}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+
+  <script id="bill-discount.html" type="text/ng-template">
+    <ion-modal-view
+      style="bottom: 10%; border-raduius: 10px; border-radius: 10px"
+    >
+      <ion-header-bar>
+        <button
+          type="button"
+          class="button button-assertive button-clear"
+          ng-click="closeModalBill()"
+        >
+          ปิด
+        </button>
+        <h1 class="title" style="text-align: center">ส่วนลดท้ายบิล</h1>
+      </ion-header-bar>
+      <ion-content scroll="false">
+        <div style="display: flex; flex-direction: column; height: 100%">
+          <div style="flex: 1; overflow: scroll">
+            <form name="myForm">
+
+              <label
+                class="item item-input"
+                style="background-color: beige;"
+              >
+                <span class="input-label" style="font-weight: bold">รวม</span>
+                <input
+                  type="text"
+                  class="text-right"
+                  disabled="true"
+                  style="background-color: transparent; font-weight: bold"
+                  value="{{billTotal.total| number : 2}}"
+                  required
+                />
+              </label>
+              <label class="item item-input">
+                <span class="input-label">ส่วนลด %</span>
+                <input
+                  ng-click="selectText()"
+                  id="discount-box"
+                  type="text"
+                  class="text-right"
+                  inputmode="decimal"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                  ng-model="billTotal.discount"
+                  ng-change="discountChange()"
+                  placeholder="ระบุส่วนลด %"
+                  min="0"
+                  max="100"
+                />
+              </label>
+
+              <label
+              class="item item-input"
+              style="background-color: beige;"
+            >
+              <span class="input-label" style="font-weight: bold">มูลค่าส่วนลด</span>
+              <input
+                type="text"
+                class="text-right"
+                disabled="true"
+                style="background-color: transparent; font-weight: bold"
+                value="{{billTotal.discountValue| number : 2}}"
+                required
+              />
+            </label>
+
+              <label class="item item-input">
+                <span class="input-label">ค่าใช้จ่ายเพิ่มเติม</span>
+                <input
+                  type="text"
+                  class="text-right"
+                  inputmode="decimal"
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                  ng-model="billTotal.otherValue"
+                  ng-change="discountChange()"
+                  placeholder="ค่าใช้จ่ายเพิ่มเติม"
+                  min="0"
+                  max="100"
+                />
+              </label>
+
+              <label
+              class="item item-input"
+              style="background-color: beige;"
+            >
+              <span class="input-label" style="font-weight: bold">รวมหลังหักส่วนลด</span>
+              <input
+                type="text"
+                class="text-right"
+                disabled="true"
+                style="background-color: transparent; font-weight: bold"
+                value="{{billTotal.totalAfterDiscount | number : 2}}"
+                required
+              />
+            </label>
+
+
+
+              <label
+                class="item item-input"
+                style="background-color: beige; padding-left: 50px"
+              >
+                <span class="input-label" style="font-weight: bold"
+                  >มูลค่าก่อนภาษี</span
+                >
+                <input
+                  type="text"
+                  class="text-right"
+                  disabled="true"
+                  style="background-color: transparent; font-weight: bold"
+                  value="{{billTotal.beforeVat | number : 2}}"
+                  required
+                />
+              </label>
+
+
+              <label
+                class="item item-input"
+                style="background-color: beige; padding-left: 50px"
+              >
+                <span class="input-label" style="font-weight: bold"
+                  >ภาษีรวม</span
+                >
+                <input
+                  type="text"
+                  class="text-right"
+                  value="{{billTotal.vatValue  | number : 2}}"
+                  disabled="true"
+                  style="background-color: transparent; font-weight: bold"
+                />
+              </label>
+
+            </form>
+          </div>
+          <div
+            style="
+              display: flex;
+              background-color: white;
+            "
+          >
+            <div
+              style="
+                width: 100%;
+                position: relative;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+              ng-click="closeModalBill()"
+                  class="button button-balanced"
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  margin-top: 10px;
+                  position: relative;
+                  align-items: center;
+                  justify-content: space-between;
+                  max-height: 60px;
+                  height: 70px;
+                  text-align: center;
+                  color: white;
+                  padding-left: 20px;
+                  padding-right: 20px;
+                  /* padding-bottom:20px; */
+                  border-radius:0px
+                "
+              >
+                <div style="font-size: 10pt; font-weight: bold">
+                  รวมมูลค่าสุทธิ {{itemData.length}} รายการ
+                </div>
+                <div style="font-size: 14pt; font-weight: bold">
+                  {{billTotal.netTotal | number : 2}} 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

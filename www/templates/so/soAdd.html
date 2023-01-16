@@ -1,0 +1,358 @@
+<ion-view hide-back-button="true" >
+  <ion-nav-title> {{mode == 'add' ? 'เพิ่มใบสั่งขาย' : 'ใบสั่งขาย'}}</ion-nav-title>
+  <ion-nav-buttons side="left">
+    <button
+      class="button button-clear button-dark ion-chevron-left"
+      ng-click="goBack()"
+    >
+      {{'ย้อนกลับ'}}
+    </button>
+  </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+
+
+    .listincard-so {
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  </style>
+
+  <ion-content style="background-color: rgba(245, 245, 246, 1)">
+    <div ng-if="isLoading">
+
+    <div style="background-color: white">
+      <div class="list">
+        <a class="item" href="">
+          <div>เลขที่ใบสั่งขาย</div>
+          <p>{{soHeader.so_nbr}}</p>
+        </a>
+
+        <div class="item item-icon-right" ng-click="openModalCm()">
+          <span style="font-weight: bold" >รหัสลูกค้า *</span>
+          <!-- <div>ลูกค้าเป้าหมาย</div> -->
+          <i class="icon ion-arrow-down-b" style="font-size: 18px"></i>
+          <p ng-if="!soHeader.so_cm.cm_addr">เลือกลูกค้า</p>
+          <p ng-if="soHeader.so_cm.cm_addr">{{soHeader.so_cm.cm_addr}}</p>
+          <p ng-if="soHeader.so_cm.cm_addr">{{soHeader.so_cm.cm_sort}}</p>
+        </div>
+        <!-- <label class="item item-input item-stacked-label">
+          <span class="input-label">รายละเอียด</span>
+          <input type="text" placeholder="รายละเอียด" />
+        </label> -->
+      </div>
+    </div>
+    <div ng-if="soHeader.so_cm.cm_addr">
+
+
+
+      <div style="margin-top: 10px; background-color: white; padding: 10px">
+        <div class="listincard-so">
+          <div style="display: flex; flex-direction: row">
+            <div
+              style="
+                background: #a9d7f6;
+                border-radius: 10px;
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                max-width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+              }
+            >
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAACDklEQVRIidWUvWsUURTFz+yaRdmkESGiQZYQGxMCaiwUgmJAsJGNBsFO25DF+BdYyoqVVkLsRLAQUyoiGLRTtEhERIMEYmlh/GLF+LOYO3idva6zYJMLw5u557xz3r3z3pM2eiSdQKAiqW7PPkkDBq1Kei5pXtJ8kiTfu3YGTgLL/DveApPdCJeAy05gETgPDANVe4Ytt+h4TaBUxCATbwHTfhKwHRh332VgxrgAzSJtycSPBvhx4F6Qn3Am9b+JV1zPpwP8LLACfAau5NsBNGzuG6AnMjjtel7OYePAOrAKvDDebI5TBpYMm8ryfhVZaXNJkqzn/I8Y95KkM5Y75Qk250ZOS5scZ7+ND9rKkz7YeEjSdUljkr4FvGzuWBsCrFl5fQG2DXhv+BNgJBAX0Gecta4MDN8B3AR+Al+BgwFnq2l8jAReG7gnwAaAQdJDeM54dwPeAcNeZjn/k5/ZeCwo4LakZUm7JT203M6Adzin9Yd7tk2Xgm160bDHwH17v5bjlNw5OhEZVEgvLoCZHLYFmCM9rT+AO0BvUEHnACbNoAVMBHgDuFpApwrcAoYisOlMGr5dwBCwt4D4QtbSiFByJtk/uQCMAL3AZscdtXZVA/F3QK3TSuqkF1dbGJ4ATy21APQXFncmPcAU6QF7BXwCWg6vmRjAl67Eiwawi9/bcwUY/G/izqQGPIpW/gtlkwL9HjIIkwAAAABJRU5ErkJggg=="
+                style="width: 20px"
+              />
+            </div>
+
+            <div
+              style="
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              "
+            >
+              <div style="font-size: medium; font-weight: bold">วงเงิน</div>
+              <div style="font-size: small; color: gray">วงเงินลูกค้า</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-left: 10px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div style="font-size: medium; font-weight: bold">
+              {{soHeader.so_cm.cm_limit | number : 2}} ฿
+            </div>
+          </div>
+        </div>
+
+        <div class="listincard-so">
+          <div style="display: flex; flex-direction: row">
+            <div
+              style="
+                background: #f96d6d;
+                border-radius: 10px;
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                max-width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+              }
+            >
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABjElEQVRIie2UMWtUQRSFvxET8gcsNChKwE4DBoXETtDeRkhroWCa1JIiEmKSyi6/QAhYWaQ0+Q+JphYSNo1hLUVc+Sy8E97Ozm42YTs98JjHvfecc+fOmwf/BNRxdUM9Vlvqmjo+SoN1e/F2lAatEJ1TH8Z7axjupSE9cl26ALcb6oLarozkLLTVV6VeKsSvAMfA5Qt1Bx3gWkrpWw6U23wQ4jupAuAR8KFPbje495uCpcGdWD+XrakvgY/AU3W10v1+rHcHGeTkXiE+BWwCX4Bt4LX6uOBmzvQgg5zcL+K3onYbWInYk2F20OxyQv0Vz0SRu6r+VA/V2fPyc8G9+NwO+gjMq9/V3+o7teceqAehMZNjzaI8nj0qSCltAbf5O6ZF4FmlLHNPx9Q0yMFy/sSPTuAm8CbCM2UdlXOo7aDHAPgU6zKQb+vXAQbTPRn1JOY3WSGiLqk/1I76Xh2r1EyGxklNwBhDX6jP1bUzarp0UiNxCFwfRD4HjlJKN6D7DF4AR6MQD63/GA5/ANhxTX7g1n65AAAAAElFTkSuQmCC"
+                style="width: 20px"
+              />
+            </div>
+
+            <div
+              style="
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              "
+            >
+              <div style="font-size: medium; font-weight: bold">ยอดหนี้</div>
+              <div style="font-size: small; color: gray">ยอดหนี้ลูกค้า</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-left: 10px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div style="font-size: medium; font-weight: bold">
+              {{soHeader.so_cm.cm_debt | number : 2}} ฿
+            </div>
+          </div>
+        </div>
+
+        <div class="listincard-so">
+          <div style="display: flex; flex-direction: row">
+            <div
+              style="
+                background: #7dd87d;
+                border-radius: 10px;
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                max-width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+              }
+            >
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAACZUlEQVRoge3ZTagNcRjH8WduCCVS18vCuyzsbhY3dS2UhextLGwoWVBWFpYW5FK2UhI2Sll7K++Rl9hQFiJvsfBOuhcfi/u/Oh3nOnOO8zJX861pOmf+z8z3N/P8Z05nIkpK/i8wD5twDA/xDo+xC1m3/cYEU7EOB/HA39nabd/fIEMfduICvlXJfsBpbMMq9GJz2nat2/K9WI9DeF4l/gO3sRdrMKlG/dw09lmnxScnqX24h59V8k9xOIWbmWN/E1PdUKMuDU8qLI6INWlZGxHTKjZ/jYjrEXE+LXezLNPg/kVEZFnW+gmPpRjEsxrtcgd7sLpWuzRxLKNhWgaW4WRVy7zEUWzArJYeMNoQBFvwteLMn8LKlh2gE2BrxRU4gaXddqrHHxMKCyPiQURMiYgraczyiKh712kTnyPifkQcj4gjWZYN56rCbsXlJubkDXK1ovCFkUk9venz+Y9ghpH5+j453Zbn7ohXqeA9FnXANRdYgrfJbXuegk9p8I4O+DUENia3W3kGj/64m98Bt4bAtOT2Jc/gUSZ0wK1hRuWqv+8ZqyDLsu/tVWotYwYZb5RBikYZpGiUQdoFFuA8PuNc0w/msR44nSKFqORsU34FCPKpKsjHPH6Fa62IuFHncz4KcEUW4Gy6Mmeq58i4aa16jKfWaooySNEogxSNMkjRqBVkOGLknV+HXepS4fTH36a1gjxN6762GTXPirR+UnckDqSH50UUpvXQg8vJbTBPwWy8SQWXMNDNNjPyWnugIsRreV8wob8iTJF4jf5Gz8Rs7McjDHVRfig5DKK3mataUlIS8QvKcr+8zm24oQAAAABJRU5ErkJggg=="
+                style="width: 20px"
+              />
+            </div>
+
+            <div
+              style="
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              "
+            >
+              <div style="font-size: medium; font-weight: bold">
+                วงเงินคงเหลือ
+              </div>
+              <div style="font-size: small; color: gray">
+                วงเงินคงเหลือลูกค้า
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin-left: 10px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div style="font-size: medium; font-weight: bold">
+              {{soHeader.so_cm.cm_balance | number : 2}} ฿
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; background-color: white; padding: 10px">
+        <div ng-click="address('saleTo')" href="">
+          <div class="row" style="justify-content: space-between;">
+            <span style="font-weight: bold">ขายถึง </span>
+            <span  style="color: gray;">เปลี่ยน </span>
+          </div>
+
+          <div style="padding: 20px">
+            <div>{{soHeader.so_sale_to.cmad_name}}</div>
+            <div>
+              {{soHeader.so_sale_to.cmad_line1}}
+              {{soHeader.so_sale_to.cmad_line2}}
+            </div>
+          </div>
+        </div>
+
+        <div ng-click="address('docTo')">
+          <div class="row" style="justify-content: space-between;">
+            <span style="font-weight: bold">เอกสารถึง </span>
+            <span  style="color: gray;">เปลี่ยน </span>
+          </div>
+
+          <div style="padding: 20px">
+            <div>{{soHeader.so_doc_to.cmad_name}}</div>
+            <div>
+              {{soHeader.so_doc_to.cmad_line1}}
+              {{soHeader.so_doc_to.cmad_line2}}
+            </div>
+          </div>
+        </div>
+
+        <div ng-click="address('shipTo')">
+          <div class="row" style="justify-content: space-between;">
+            <span style="font-weight: bold">ส่งถึง </span>
+            <span  style="color: gray;">เปลี่ยน </span>
+          </div>
+
+          <div style="padding: 20px">
+            <div>{{soHeader.so_ship_to.cmad_name}}</div>
+            <div>
+              {{soHeader.so_ship_to.cmad_line1}}
+              {{soHeader.so_ship_to.cmad_line2}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; background-color: white">
+        <!-- <div style="font-weight: bold">ขายถึง</div> -->
+
+        <div class="list">
+          <div class="item item-icon-right" ng-click="sotab('app.sotab1')">
+            กำหนดข้อมูลพื้นฐาน <i class="icon ion-ios-arrow-right"></i>
+          </div>
+          <div class="item item-icon-right" ng-click="sotab('app.sotab2')">
+            กำหนดข้อมูลการเงิน <i class="icon ion-ios-arrow-right"></i>
+          </div>
+          <div class="item item-icon-right" ng-click="sotab('app.sotab3')">
+            กำหนดข้อมูลขนส่ง <i class="icon ion-ios-arrow-right"></i>
+          </div>
+          <div class="item item-icon-right" ng-click="sotab('app.sotab4')">
+            กำหนดข้อมูลรายการขาย
+
+            <span class="badge badge-assertive">{{itemData.length}}</span>
+
+            <!-- <i class="icon ion-ios-arrow-right"></i></div> -->
+          </div>
+        </div>
+        <div style="padding: 10px; background-color: white">
+          <!-- {{baseconfigData[7].selected.value}} -->
+          <button
+            class="button button-block button-positive"
+            ng-click="confirm($event)"
+            style="border-radius: 10px"
+          >
+            {{mode == 'add' ? 'สร้างใบสั่งขาย' : 'บันทึกใบสั่งขาย'}} {{billTotal.netTotal | number : 2}} 
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </ion-content>
+
+  <script id="cm-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalCm()">ปิด</button>
+        <h1 class="title" style="text-align:center" >ลูกค้า</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchTextCm">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.data.result | filter:searchTextCm" ng-click="selectCm(x)">
+            <p>{{x.cm_addr}}</p>
+
+            <h2>{{x.cm_sort ? x.cm_sort  : 'ไม่มีขื่อ'}}</h2>
+
+          </a>
+
+
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <script id="address-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalAddress()">ปิด</button>
+        <h1 class="title" style="text-align:center" >{{addressModalMode == 'saleTo' ? 'ขายถึง' : addressModalMode == 'docTo' ? 'เอกสารถึง' : addressModalMode == 'shipTo' ? 'ส่งถึง' : '' }}</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchTextModalAddress">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in addressTo | filter:searchTextModalAddress" ng-click="selectAddress(x)">
+            <p>{{x.cm_addr}}</p>
+            <div style="font-weight:bold">{{x.cm_sort ? x.cm_sort  : 'ไม่มีขื่อ'}}</div>
+            <div>{{x.cmad_name}}</div>
+            <p style="white-space:initial">{{x.cmad_line1}} {{x.cmad_line2}} </p>
+
+
+          </a>
+      </div>
+
+
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

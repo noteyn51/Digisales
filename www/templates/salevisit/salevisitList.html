@@ -1,0 +1,349 @@
+<ion-view hide-back-button="false" hide-nav-bar="false" cache-view="false">
+  <ion-nav-title>รายการนัด</ion-nav-title>
+  <ion-nav-buttons side="right">
+  
+  </ion-nav-buttons>
+  <ion-content
+    style="
+      background-size: cover;
+      background-image: url('./img/home-bg.svg');
+      background-color: white;"
+  >
+    <style>
+      .cardjob-check {
+        width: 100%;
+        margin-top: 5px;
+        border-radius: 5px;
+        background-color: white;
+        border-left: 5pt;
+        border-color: #639cd9;
+        border-style: solid;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.1s;
+      }
+
+      .cardjob-check.activated {
+        background-color: #d9d9d9;
+      }
+
+      .cardjob-none {
+        width: 100%;
+        margin-top: 5px;
+        /* height: 130px; */
+        border-radius: 5px;
+        background-color: white;
+        border-left: 5pt;
+        border-color: #639cd9;
+        border-style: solid;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.1s;
+      }
+
+      .cardjob-none.activated {
+        background-color: #d9d9d9;
+      }
+    </style>
+
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        padding: 20px 20px 0px 20px;
+        justify-content: space-around;
+      "
+    >
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+        ng-click="viewAdd()"
+      >
+        <div
+          style="
+            background: #639cd9;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          }
+        >
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAD0UlEQVRoge2aTWhUVxTH/ydoIqiYTStUdCJNKSq1Wr+xoAuhuur3JsaNRat0Zay4ET9wIUVxJborggQX6k5BF8GNdistbQQb0lSwxQiNohK/yq+Ld1/mzMu8yeTlZSZT8ofHnLnn3HP/59777j33zkjTqC8sSyWgSVJH+NptZtTTT5aGOyliez39NGVsu93J72X0kYufrAFMGaS+A0CbpO8kbZW0WNLsWpEKeC6pX9INSWfM7M+qagEGHAReMnXwAjhQbQCn6s22Ak6ORf7zRIVbwCfAnITdUWdztKqeKd9eqh9gDrAVuJ3g9Km3a3IVTNIJp7skabOZ3TCzZ1lJZoWZPTOz65I2BS4xTgSukkpXoY8kvR/kIUm7zOxNiv8+J/8+AZ5j+gkcdgdOkrRE0opYP8PZrnbyVTN7UqHhbkmE5+I4CGfyY2aPgWuSOkPRGkl3pNIA3nJyxSUrbPndGQhPxM+Ak9+OBT+FfDD/ToDXZMFzGuHa8DvxdAD1xoyU8iPAkZoyyYiGH4H/bQDHbIpB0rHxBNAwaPgA0lahmgFYKmmliunBoKQ7ZtabMC2b+NUlAGCWouPqHpUe7L1Nn6Rzks6a2QuNlfjldUipgvwGYGAcp7ABYH2av5qOAPC1pAuSWlzxkKQeSfcVXTIslLRFUmvQFyTdBHaY2eVKzid1BELPD7s2HgK7gJllbGcC3wKDzn4YWFeXAIBZiWnzK7DI6ZuIbuk6/XERKATbGH8ALWmNTGYA3yd6flFCn3rFGILwI9Hl9bXaB3Y7+ZCZ3U/oU68YLbrQOuyK9nr9pAcALHOkhiSdz+DmR0nxGb2daO+QVJtVaLmTe8zsNcVr9QWhfKOz2QgcDPIDRdfur4AeSV+E8g8l9Uq1CeAdJ8eXBR2KltNy2BKeGPHB3x/qR3w2ai408kNILUbgLye3hc84LfggfP9YxWl0W9KtIP+iYtqw2Pn5e1QrwCG3VB3PgXjsd6nzO5SycVVcwoFm4LGzWRLr/BQadHIhrwBCVhlnj62SdmZw842keUG+Z2Z3R1kAq1yE/wDzRhllBLDf+R4ECgl9pY2sDXjk9PvSGjHgrjO8BOTyjlA+lSg4vQHbgQ5KU4k24DdXr5+0VCJU+IxS/ARsA+bmEMR6SpO5R8AeoLmMbTOwN9Hzw8Daaho6Sb7oA9qD768SQUD0cl4BTofnCqUvbEz+y/H01gGi36XyQpfzvY4oq6wW/VTT82WCKAA/AD8DTydA/h7wbsJ3C9AVdJXq7aPSnFfGvxrkCaI1faWk+aHooaJD/eilchpTEP8BfX0ICiEJSDYAAAAASUVORK5CYII="
+            style="width: 30px"
+          />
+        </div>
+
+        <div style="margin-top: 10px">เพิ่มนัดหมาย</div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+        ng-click="viewHistory()"
+      >
+        <div
+          style="
+            background: #5454c5;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          }
+        >
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAEy0lEQVR4nO2aW2gfRRjFz5ikqW2MaWtN9EVBorVWRLQIEqOCRYnVeqF4e1KkFtqSB2nVgteA+FAN+FZ9EKqopVi84AWsUKwJrVjFl2q0WqlgtYbQSy7QJv+fD/P9ySZN/pfd2U2keyBsMpk55+y3szM734yUI0eOHDly5Dhb4bISAi6QVHDODUwq75G0XNKgpH5Jv0v6WdJeSbudc39n5TFVAAeBI4CbVL6H0tgHbAAWpeEryx7wsqR659yTU/yvTlKDpGZJrZKWSWqX1GblkjQk6Q1JW5xzf2ViOg6ANnvaKwJwzQUeAD4HCtYjTgIbLWizD8Aq4DRwf2Dea4CdkVdjP9AaUiMYgDkpct8O/GZBOAGsSkurUkNLgYbyNadt3wPsqbJNI7DdgjAKPBFXPxGAq4AxYFsCDgBitn3emheANXE9xAYwH3gXuCcBR+wAWPsNkZ4Q28eMIWkAjOM5ozk+awfG6RAiAMazw6i+B2pDeJtOaEXIrhYwAOcDh4xuYwhv0wkdBk4BNYH4ggTAuDqMbhBoCcE5lUg7cFdAvmABML6PjfK1UJypIoUAXGfT4hCwMBRvaggdAOPcZbTrQvKmgpQC8IjR7gtFuBjoA7qCEE7kTiMA84AR/Ffq4lJ1z6mQs0ZSk6R5id1lAOfcsKQe+fu7bYbtlEYaPcB4nzXqV0vVq7QH/B9xwK5LS1UqGwB7nzqBy4LYyg59dk3mG3jLutIJUlhypvgKtBh1fxKSBzkTbwONAY0WcR+TMsYJec813tNxCS4Fjk26+UG7HgSWBzLaG+HvBdoC8TYY50icxrX4VBX4ROSA/X4DfrkJfkG0CUg0kAJ1wHrgaCQQHwJXJuS90LgGytc+s3GXNT4MLAR+sr9bgXqgm/E09ftJjEY0G013qNh1ga3ARTH5rjaevvK1Jza8GZ9eGgXarexLI7sjUq8D+AfojWOwhP7FwJumX3ztuoDzquS519p/Vq2BX6zhi5GyLVb21KS6c0gp+4LPNheXtliw11PhhgjjabLuaoW78VNfTaTsYSP7qMr7SAx8/mFvJBAV9TjgK6u/OoSJFvzCYhCoT0xYvb4DVgMHgN0V1G8Ahm2cCpMZijyFmd2JqQCML4d7ytWtZgp7z64zswtTHR616/ZgjECTTVFjQMkFxkwCuN6e/klgQWjy1418R1DigAA+NY/hk6JAs0W2ANwSXCAhgDvt5o8HG/ymENlsIr8CsyZDBCwA/jBvqW6M1ALfmdA7qQlVAZsmi1tj31b6sZREcIl1M4BNqYpV5uelyMCXzeYocLfNCAVgbSaiU/votJsfBVZmLb7GAlAAnslY2wEv2M3P3EMA1jK+cttGlau2mJqNwAeRJ/942prlDK3E5wzBZ4tuTVGrIzLaHyPgRm0iAFfYCFzETmBZQP5rgU8i/PuBy0PxBwE+vfV0pDcUgC/wK7mqvxnwKfmH8AmZYgZqEH9QMkgeIpWjskCzpM2SHtPEo65fS+qV9IOkQ5KOSBqRdErSIvtZIn9U9ib547Jzrf2wpK2SXnHOHU3Dd3Dgj610At/YlFktxvDL8HVAUxoeszws3SL/VG+Uf8qXSGqRVCdpvvxR+X5Jf0r6Ub6X7HLO/ZuVxxw5cuTIkSPH2YX/AIyZOkIN7niPAAAAAElFTkSuQmCC"
+            style="width: 30px"
+          />
+        </div>
+
+        <div style="margin-top: 10px">ดูประวัติการนัดหมาย</div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+        class=""
+        ng-click="viewCalendar()"
+      >
+        <div
+          style="
+            background: #342056;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+          }
+        >
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAABDUlEQVRoge2YsU7DQAyGPyNWKgRrVzq2I29Z3gPoE5SZnbXq2rVS7wX+Di0DImc1Dakb5G+LfHH8yZdLZEhisbY3SNKPBGatc/xlvpsuD78GUiAaV0DSWNKbpKIjDWs64eQrkhaSnrwaqy+MpDHwBTx4CS7AFpia2aYp6HXghfji4VDDvBb0OlCAuz4qOoOdmd03BTyBX/szktr34X+fQkMgBaIZvMDtqQu7/nW25dRTcPAdSIFoUiCaFIgmBaJJgWhSIJoUiCYFokmBaFIgGm8qUYDR90XwrHRXC3gd+OihkHNZ1gLedHoCfAKPfVTUgi3wbGbrpmC1A2a2AmbAK4ftdGkK8I5TfJIkSTx7iziUbBghU0EAAAAASUVORK5CYII="
+            style="width: 30px"
+          />
+        </div>
+
+        <div style="margin-top: 10px">ดูมุมมองปฏิทิน</div>
+      </div>
+    </div>
+
+    <div ng-if="jobList.length > 0">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search" ng-model="vm.searchText" />
+        </label>
+      </div>
+      <div>
+        <div></div>
+      </div>
+
+      <div>
+        <div class="list" style="margin: 10px">
+          <div
+            ng-class="x.status == 'checkin' ? 'cardjob-check':'cardjob-none'"
+            ng-repeat="x in jobList |  filter:vm.searchText"
+            style="padding: 15px"
+            ng-click="viewDetail(x)"
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              "
+            >
+              <div style="font-weight: bold; font-size: 12pt; color: #342056">
+                {{x.datestart.sub_desc == x.dateend.sub_desc ? x.datestart.sub_desc :  x.datestart.sub_desc +' - '+x.dateend.sub_desc  }}
+              </div>
+              <div style="font-weight: bold; font-size: 10pt; color: gray">
+                {{x.datestart.time}}  -    {{x.dateend.time}}
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: 10px;
+              "
+            >
+              <div
+                style="
+                  height: 18px;
+                  width: 18px;
+                  background-color: #91eae4;
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  style="width: 14px; height: 14px"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA60lEQVRIie2UMUoDQRhGv98tVj2BYraxyQls0wXSWuQCOYOHyFVMIyGVoCC2KdYbpIjbSDBspU14NpsoS3Z2ZCdV9sFUP/97MDAjHQ3AAEiB4SHkY375AEbAeSj5LftZANchAi8VAYCHEIG1I5DX7Z94NCJXP0Tg2TF79Nh3A3SBzz3XswI6jQNFJAEmQF6c+2DyFqsaAJGknqS+pBtJV5KSYryU9C5pLulJ0quZbbyKQAzcAZnjgZXJip24Tn4JvP1DXCYFLlyBWQP5lulfp5UCX5JOve6ymm8zO6sK1P4tPpjZzuvzF7Uclh8fro6TSnzUGwAAAABJRU5ErkJggg=="
+                />
+              </div>
+              <div
+                style="
+                  color: gray;
+                  margin-left: 5px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  flex: 1;
+                "
+              >
+                {{x.cmad_attn}}
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: 5px;
+              "
+            >
+              <div
+                style="
+                  height: 18px;
+                  width: 18px;
+                  background-color: #91eae4;
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  style="width: 14px; height: 14px"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAADEklEQVRoge2ZzUsVURjG3zHQIm1TUHkJMi1zIYkUFIIQtGkl9LEIbZubcBGm5SZa1z+Q22pxC7/+g4ishEzblLQNozIjP1po6q/FzA1775mPM3fGiboPzOKdc97nfZ5zz5x5HUXKKOP/hpMkGdAqIh0i0i4i+0TkgDf0QUQ+ichTERlzHOd1knVLAuAAF4AZomMGOA8kuoBxxNcBLyyEa4wDB7MS3wZ8LkF8AV+B01stvh1YMYhZAfLAJaAR2Oldjd69fEBe+1aJrwPmDCKGgEMR8uuBYUP+F6AubfEOxXt+Hbgeg6vPy92McdJ8sIGLhpXrLYGv38B3LknNm4s5FB+VQ4Z5VUAP8BJYBmaBkwG8I4rzbVoGWlWhFdSeB3LAtJp3LYS3AVhVOS1pGLitiuTVeJVBPMDuCNyPVc6tqLoqLDzoY25Uxd0icsyQVxWBW3NFPlJtDNSqeFLFnT55l/UN4JS69UrFOQtd0QAsqp+5Ro0vGbZP4VnpB2qBPUAvMKtya1TOYhoGfqgi1RENmLCgcnep8eWoumy20JyK9ZayOf703P0htXxhY2BGxcdV/MCC66GKT4TU8oWNgQkVd6h4UESmI/BMe3ODuHSt0oHbPuuHs17NyQFTAXt/CsipnMMUv8ja0jBQAXxUhYYN8yqBq7hN35J3PffuVaq5DjCmOGcBm51hZeKuYVX7SuC7YeC7k6RmXbCB4hZ43daEt/L9PlwNaekvFNc/eQEjUYrj7vlRH46xVMV7AlqADR8Bq7iNWSdwFKj2riagyxvTD2wBG6TRhfqYeOQjohTkwysnZ+AI8DNB8WtAUxwtsY4rx3Hei92bNwz3Hcd5lyBfOIC9wLcEVv87oHuhLTPRnYCBK5mI9wxU4H4KiYsJ0nrrWphoxv9oDMIq0Jyp+AKAgRgGbmat+zdwt9ITC/HPgG1Z6/4DuN9MFyKIXyLtficucNuFMHRlrTMQwGCA+HtZ6wsFsB2YNIh/A+zIWl8k4P4PYH6T+HnUn59/PYAzuA3fGnA2az2xgPuZvSdrHWWU8S/jF6rrzeletd7UAAAAAElFTkSuQmCC"
+                />
+              </div>
+              <div
+                style="
+                  color: gray;
+                  margin-left: 5px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  flex: 1;
+                "
+              >
+                {{x.calendar_desc1 ? x.calendar_desc1 : '-'}}
+              </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: 5px;
+              "
+            >
+              <div
+                style="
+                  height: 18px;
+                  width: 18px;
+                  background-color: #91eae4;
+                  border-radius: 10px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <img
+                  style="width: 14px; height: 14px"
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAbklEQVRIiWNgGAWDBvyHAmqby4huCSMjIyMyn2yDoeYwke82MgAtgmjoA6wRihzRlAIWJDYbAwPDKmRJaqcimOFh5BqK1SIYg1ZBNPQBzYMIHslQQyuQJf9TADAsgAJBarkc7nBk16L5ZhQMEwAA/QtmB40MdukAAAAASUVORK5CYII="
+                />
+              </div>
+              <div
+                style="
+                  color: gray;
+                  margin-left: 5px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  display: flex;
+                  flex: 1;
+                "
+              >
+                {{x.list_count}} หัวข้อดำเนินการ
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-click="viewAdd()" ng-if="!jobList" style="text-align: center;font-size: 16pt;color: gray;margin-top: 50px;">
+      เพิ่มรายการนัดหมาย +
+    </div>
+    <div style="height: 100px;"></div>
+  </ion-content>
+
+  <!-- <div  style="position: absolute;z-index: 999;bottom: 20px;right: 20px;">
+    <md-fab-speed-dial
+      md-open="isOpen"
+      md-direction="{{selectedDirection}}"
+      ng-class="selectedMode"
+    >
+      <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-primary">
+          <md-icon md-svg-src="./img/abc.svg"></md-icon>
+        </md-button>
+      </md-fab-trigger>
+
+      <md-fab-actions>
+        <md-button aria-label="Play Demo" class="md-fab md-raised md-mini">
+          <md-icon
+          md-svg-src="./img/abc.svg"
+            aria-label="Play Demo"
+          ></md-icon>
+        </md-button>
+        <md-button
+          aria-label="Video Tutorial"
+          class="md-fab md-raised md-mini"
+        >
+          <md-icon
+            md-svg-src="./img/abc.svg"
+            aria-label="Video Tutorial"
+          ></md-icon>
+        </md-button>
+        <md-button aria-label="View Code" class="md-fab md-raised md-mini">
+          <md-icon
+            md-svg-src="./img/qwe.svg"
+            aria-label="View Code"
+          ></md-icon>
+        </md-button>
+      </md-fab-actions>
+    </md-fab-speed-dial>
+  </div> -->
+</ion-view>

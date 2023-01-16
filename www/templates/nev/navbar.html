@@ -1,0 +1,52 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar align-title="center">
+      <ion-nav-back-button
+        class="button button-clear button-dark ion-chevron-left"
+      >
+        {{'ย้อนกลับ'}}
+      </ion-nav-back-button>
+      <ion-nav-button> </ion-nav-button>
+    </ion-nav-bar>
+
+    <ion-tabs
+      class="tabs-icon-top tabs-color-active-positive"
+      ng-class="{'tabs-item-hide': shouldHide()}"
+    >
+      <ion-tab
+        title="เมนู"
+        icon-off="ion-home"
+        icon-on=" ion-home"
+        ng-click="farmermenu()"
+      >
+        <ion-nav-view name="tab-menu"></ion-nav-view>
+      </ion-tab>
+
+
+      <span
+      ng-if="notiBadge > 0"
+        class="badge badge-assertive"
+        style="position: absolute; z-index: 9999; margin-right: -45px"
+        >{{notiBadge}}</span
+      >
+
+      <ion-tab
+        title="แจ้งเตือน"
+        icon-off="ion-chatbubbles"
+        icon-on="ion-chatbubbles"
+        ng-click="noti()"
+        bage="123"
+      >
+        <ion-nav-view name="tab-noti"></ion-nav-view>
+      </ion-tab>
+      <ion-tab
+        title="ตั้งค่า"
+        icon-off="ion-gear-a"
+        icon-on="ion-gear-a"
+        ng-click="appsetting()"
+      >
+        <ion-nav-view name="tab-appsetting"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+  </ion-side-menu-content>
+</ion-side-menus>

@@ -1,0 +1,73 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <ion-nav-title>ขนส่ง </ion-nav-title>
+  <ion-nav-buttons side="right"> </ion-nav-buttons>
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+
+  <ion-content style="background-color: white">
+    <div class="md-padding">
+      <div ng-repeat="x in transportData">
+        <div ng-if="x.type == 'select'">
+          <div layout="row" layout-align="space-between center">
+            <span style="min-width:120px;">{{x.title}}</span>
+            <md-select
+              ng-model="x.selected"
+              ng-model-options="{trackBy: '$value.value'}"
+              placeholder="เลือก{{x.title}}"
+              class="md-no-underline"
+              style="margin: 10px"
+            >
+
+            
+              <md-option ng-repeat="j in x.select" ng-value="j"
+                >
+                {{j.des }}
+                </md-option
+              >
+            </md-select>
+          </div>
+        </div>
+
+        <div ng-if="x.type == 'input'">
+          <label
+            class="item item-input"
+            style="
+              margin: 0px;
+              border: 0px;
+              background: transparent;
+              padding-top: 5px;
+              padding-bottom: 5px;
+              padding-left: 0px;
+              padding-right: 0px;
+            "
+          >
+            <span class="input-label">
+              <span>{{x.title}}</span>
+            </span>
+            <input
+              type="text"
+              placeholder="ป้อน{{x.title}}"
+              ng-model="x.selected.value"
+              style="text-align: right"
+            />
+          </label>
+        </div>
+        <md-divider></md-divider>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

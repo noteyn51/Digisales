@@ -1,0 +1,539 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <!-- <ion-nav-buttons side="left">
+        <button class="button  button-clear button-dark ion-chevron-left" ng-click="vm.goBack()" >
+          Back</button>
+      </ion-nav-buttons> -->
+  <ion-nav-title>ข้อมูลลูกค้า
+  </ion-nav-title>
+
+  <style>
+    .abc:active {
+      transform: scale(0.8);
+    }
+
+  </style>
+
+  <style>
+    .scroll {
+      height: 120%;
+    }
+
+    .dp-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .navBardemoBasicUsage md-content .ext-content {
+      padding: 50px;
+      margin: 20px;
+      background-color: #FFF2E0;
+    }
+
+  </style>
+
+  <button class="button button-balanced icon ion-plus" style="position: absolute;
+z-index: 999;
+bottom: 10%;
+right: 5%;
+border-radius: 50%;
+height: 70px;
+width: 70px;" ng-click="openModalAdd()" ng-if="currenttab == 'tab2'"></button>
+
+  <ion-content>
+
+    <div class="button-bar">
+      <a class="button" ng-click="gotoTab('tab1')">ข้อมุล</a>
+      <a class="button" ng-click="gotoTab('tab2')">รายการ</a>
+      <!-- <a class="button" ng-click="gotoTab('tab3')">ที่อยู่</a>
+      <a class="button" ng-click="gotoTab('tab4')">รายละเอียด</a> -->
+
+    </div>
+
+    <div ng-if="currenttab == 'tab1'">
+      <div class="list">
+
+
+        <div>
+
+          <a class="item item-icon-left">
+            <i class="icon ion-clipboard"></i>
+            <p>ใบเสนอราคา</p>
+            <p> {{vm.sq.sqno}}</p>
+
+
+
+          </a>
+
+          <a class="item item-icon-right" ng-click="openModalCm()">
+            <i class="icon ion-arrow-down-b"></i>
+
+            <p ng-if="!vm.cmselect">เลือกลูกค้า <span style="color:red">*</span></p>
+            <p ng-if="vm.cmselect">{{vm.cmselect.cm_addr}}</p>
+
+            <p ng-if="vm.cmselect">{{vm.cmselect.cm_sort}}
+
+            </p>
+          </a>
+
+          <div ng-if="vm.cmselect">
+
+            <a class="item item-icon-left">
+              <i class="icon ion-clipboard"></i>
+              <p>เอกสารถึง</p>
+              <p> {{vm.cmselect.cm_sort}}</p>
+
+
+
+            </a>
+
+            <a class="item item-icon-left">
+              <i class="icon ion-paper-airplane"></i>
+              <p>ส่งถึง</p>
+              <p>{{vm.cmselect.cm_sort}}</p>
+            </a>
+
+            <a class="item item-icon-right" ng-click="openModalOs()">
+              <i class="icon ion-arrow-down-b"></i>
+
+              <p ng-if="!vm.osselect">เลือกเลขที่โอกาสการขาย</p>
+              <p ng-if="vm.osselect">เลขที่โอกาสการขาย</p>
+
+              <p ng-if="vm.osselect">{{vm.osselect.os_nbr}}
+
+              </p>
+            </a>
+
+          </div>
+
+
+
+
+
+          <a class="item item-icon-left" ng-click="vm.pickdate()">
+            <i class="icon ion-calendar"></i>
+            <p>กำหนดส่ง<span style="color:red">*</span></p>
+            <p> {{model.dateship}}</p>
+
+
+
+          </a>
+       
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">สกุลเงิน<span style="color:red">*</span></span>
+            <div class="row" style="text-align:center;margin-left:0px;margin-bottom: -10px;position:relative">
+              <div class="col">
+
+                <div class="form-group">
+
+                  <select class="form-control" ng-options="item as item.ex_desc for item in vm.ex track by item.ex_curr"
+                    ng-model="vm.exSelect">
+                  </select>
+                </div>
+              </div>
+            </div>
+          </label>
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">term<span style="color:red">*</span></span>
+            <div class="row" style="text-align:center;margin-left:0px;margin-bottom: -10px;position:relative">
+              <div class="col">
+
+                <div class="form-group">
+
+                  <select class="form-control" ng-options="item as item.ct_desc for item in vm.ct track by item.ct_code"
+                    ng-model="vm.termSelect">
+                  </select>
+                </div>
+              </div>
+            </div>
+          </label>
+
+          <!-- <label class="item item-input item-stacked-label">
+            <span class="input-label">เงื่อนไข</span>
+            <div class="row" style="text-align:center;margin-left:0px;margin-bottom: -10px;position:relative">
+              <div class="col">
+
+                <div class="form-group">
+
+                  <select class="form-control"
+                    ng-options="item as item.os_desc for item in vm.os_status track by item.os_code"
+                    ng-model="vm.osSelect">
+                  </select>
+                </div>
+              </div>
+            </div>
+          </label> -->
+
+
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">ภาษีมูลค่าเพิ่ม<span style="color:red">*</span></span>
+            <div class="row" style="text-align:center;margin-left:0px;margin-bottom: -10px;position:relative">
+              <div class="col">
+
+                <div class="form-group">
+
+                  <select class="form-control"
+                    ng-options="item as item.description for item in vm.taxc track by item.tax_class"
+                    ng-model="vm.taxSelect">
+                  </select>
+                </div>
+              </div>
+            </div>
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">ยื่นราคา</span>
+            <input type="text" ng-model="model.price_s" style="text-align: right;">
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">ส่งทาง</span>
+            <input type="text" ng-model="model.shiptype" style="text-align: right;">
+          </label>
+          <label class="item item-input">
+            <span class="input-label" ng-model="model.remks">หมายเหตุ</span>
+            <input type="text" style="text-align: right;">
+          </label>
+
+        </div>
+
+      </div>
+      <div style="height: 50px;"></div>
+    </div>
+
+
+
+    <div ng-if="currenttab == 'tab2'">
+
+
+      <div class="list">
+        
+
+        <a class="item" ng-repeat="x in   vm.itemlist | filter:searchPart">
+          <p>{{x.pt_part}}/{{x.pt_desc1}}</p>
+
+          <h2>จำนวน : {{x.qty | number}}</h2>
+          <h2>ราคาต่อหน่วย : {{x.price  | number}}</h2>
+          <h2 ng-if="x.distype == 'Amount'">ส่วนลด : {{x.disbath  | number}} บาท</h2>
+          <h2 ng-if="x.distype == 'Percent'">ส่วนลด :  ({{x.dispct}} %)</h2>
+          <h2>รวม : {{x.total  | number}}</h2>
+
+
+
+        </a>
+    
+    
+    </div>
+
+
+    
+
+    </div>
+
+    <!-- <div ng-if="currenttab == 'tab3'">
+      <div class="item">
+
+        <div class="dp-flex">
+          <a style="font-weight: bold;">บ้านเลขที่</a>
+          <a style="
+            width: 60%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: right;
+          ">{{vm.cmad_det.cmad_add_no}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">หมู่</a><a>{{vm.cmad_det.cmad_moo_no}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ชื่อหมู่บ้าน</a><a>{{vm.cmad_det.cmad_moo_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ห้องเลชที่</a><a>{{vm.cmad_det.cmad_room_no}}</a>
+        </div>
+
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ชั้น</a><a>{{vm.cmad_det.cmad_floor_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ชื่ออาคาร</a><a>{{vm.cmad_det.cmad_build_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ตรอก/ซอย</a><a>{{vm.cmad_det.cmad_build_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ถนน</a><a>{{vm.cmad_det.cmad_street}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">แขวง/ตำบล</a><a>{{vm.cmad_det.cmad_tumbol_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">เขต/อำเภอ</a><a>{{vm.cmad_det.cmad_amphur_name}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">จังหวัด</a><a>{{vm.cmad_det.cmad_city}}</a>
+        </div>
+
+        <div class="dp-flex">
+          <a style="font-weight: bold;">รหัสไปรษณีย์</a><a>{{vm.cmad_det.cmad_zip}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">ประเทศ</a><a>{{vm.cmad_det.cmad_country}}</a>
+        </div>
+        <div class="dp-flex">
+          <a style="font-weight: bold;">พิกัด</a><a>{{vm.cmad_det.cmad_latitude}} ,{{vm.cmad_det.cmad_longitude}}</a>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div ng-if="currenttab == 'tab4'">
+      <div class="list">
+
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input type="text" placeholder="รายละเอียด" ng-model="commentText">
+          </label>
+          <button class="button button-small" ng-click="addComment(commentText)">
+            เพิ่ม
+          </button>
+        </div>
+
+        <div class="list list-inset">
+
+          <div class="item item-button-right" ng-repeat="x in commentlist">
+            {{x.desc}}
+            <button class="button button-assertive" ng-click="deleteComment($index)">
+              <i class="icon ion-trash-a"></i>
+            </button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div> -->
+
+    <div style="height:50px"></div>
+
+
+
+
+
+
+  </ion-content>
+  <div style="position: absolute; bottom: 0px; width: 100%; background: white;">
+    <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+      <button class="button button-block button-balanced ion-chevron-right icon-right" ng-click="createSQ()">
+        ยืนยัน
+      </button>
+    </div>
+  </div>
+
+
+  <script id="cm-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalCm()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchText">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.data.result | filter:searchText" ng-click="selectCm(x)">
+            <p>{{x.cm_addr}}</p>
+
+            <h2>{{x.cm_sort}}</h2>
+  
+          </a>
+      
+      
+      </div>
+    
+    
+      </ion-content>
+    </ion-modal-view>
+  </script>
+  <script id="cm-os.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalOs()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchText">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in  vm.oslist.result | filter:searchText" ng-click="selectOs(x)">
+            <p>{{x.os_nbr}} / {{x.cmad_name}}</p>
+
+            <h2>รายการสินค้า : {{x.os_part}}</h2>
+            <h2>มูลค่าโครงการ : {{x.os_amt | number}} บาท</h2>
+
+
+
+  
+          </a>
+      
+      
+      </div>
+    
+    
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+
+
+
+  <script id="add-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalAdd()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content style="background-color: #fafafa;" >
+        <ion-slide-box ng-init="lockSlide()" style="width: 100%;height: auto;" show-pager="false">
+              <ion-slide>
+                <div class="list">
+
+                  <div class="item item-icon-right " 
+                    ng-style="toggleList.T1 && {'background-color': '#D9D9D9'}"  ng-click="vm.selectAndNext()">
+                    <i class="icon ion-ios-arrow-right" ng-if="toggleList.T1 == false"></i>
+                    <i class="icon ion-ios-arrow-down" ng-if="toggleList.T1 == true"></i>
+            
+                    เลือกสินค้า
+                  </div>
+                </div>
+
+                
+
+
+                <div class="list">
+                 
+
+                  <div ng-if="vm.partSelect">
+                    <a class="item ">
+                      <p ng-if="vm.partSelect">{{vm.partSelect.pt_part}}</p>
+                      <p ng-if="vm.partSelect">{{vm.partSelect.pt_desc1}}</p>
+          
+                    </a>
+
+                  <label class="item item-input">
+                    <span class="input-label">จำนวน <span style="color:red">*</span></span>
+                    <input type="number"   ng-model="vm.itemAdd.qty" ng-change="qtyChange(vm.itemAdd.qty)" style="text-align:right">
+                  </label>
+                  <label class="item item-input">
+                    <span class="input-label">ราคา/หน่วย<span style="color:red">*</span></span>
+                    <input type="number" ng-model="vm.itemAdd.price" ng-change="priceChange(vm.itemAdd.price)" style="text-align:right">
+                  </label>
+                  <div style="display:flex"  ng-show="vm.itemAdd.qty && vm.itemAdd.price">
+
+                    <label class="item item-input">
+                      <span class="input-label">ส่วนลด/บาท</span>
+                      <input type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  style="text-align:right" ng-disabled="!vm.itemAdd.qty && !vm.itemAdd.price" ng-model="vm.itemAdd.disbath" ng-change="disbathChange(vm.itemAdd.disbath)">
+                    </label>
+                    <label class="item item-input">
+                      <span class="input-label">ส่วนลด/%</span>
+                      <input type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  style="text-align:right" ng-disabled="!vm.itemAdd.qty && !vm.itemAdd.price" ng-model="vm.itemAdd.dispct" ng-change="dispctChange(vm.itemAdd.dispct)">
+                    </label>
+                  </div>
+               
+
+                  <div class="item " style="display:flex;justify-content: space-between;"> 
+                    <div>รวม</div>
+                    <p>{{vm.itemAdd.total | number}}</p>
+
+                  </div>
+
+                </div>
+
+                <button class="button button-block button-balanced ion-chevron-right icon-right" ng-click="confirmitem()" ng-if="vm.partSelect"
+                ng-disabled="!vm.itemAdd.total">
+                  ยืนยัน
+                </button>
+
+
+                </div>
+
+
+
+
+              </ion-slide >
+            
+
+              <ion-slide style="background-color: white;">
+            
+                  <div class="list">
+                    <div class="list list-inset">
+                      <label class="item item-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" placeholder="Search" ng-model="searchPart">
+                      </label>
+                    </div>
+          
+                    <a class="item" ng-repeat="x in vm.partItem.result | filter:searchPart" ng-click="selectPart(x)">
+                      <p>{{x.pt_part}}</p>
+          
+                      <h2>{{x.pt_desc1}}</h2>
+            
+                    </a>
+                
+                
+                </div>
+                
+              </ion-slide >
+            </ion-slide-box  >
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
+  <script id="part-modal.html" type="text/ng-template">
+    <ion-modal-view >
+      <ion-header-bar>
+          <button type="button" class="button button-assertive button-clear" ng-click="closeModalPart()">close</button>
+        <h1 class="title" style="text-align:center" >cm</h1>
+        <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+      </ion-header-bar>
+      <ion-content >
+        <div class="list">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" ng-model="searchPart">
+            </label>
+          </div>
+
+          <a class="item" ng-repeat="x in vm.partItem.result | filter:searchPart" ng-click="selectPart(x)">
+            <p>{{x.pt_part}}</p>
+
+            <h2>{{x.pt_desc1}}</h2>
+  
+          </a>
+      
+      
+      </div>
+    
+    
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

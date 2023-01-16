@@ -1,0 +1,69 @@
+<ion-view hide-back-button="false" hide-nav-bar="false">
+    <ion-nav-title>ปฏิทินนัดหมาย</ion-nav-title>
+    <ion-nav-buttons side="right">
+      <button
+        type="button"
+        class="button button-clear button-positive"
+        ng-click="add()"
+        ng-if="path === '/post/post/menupostpect2'"
+      >
+        เพิ่มลูกค้า +
+      </button>
+
+      <style>
+        .fc-toolbar{
+            padding: 10px;
+            text-align: left;
+            /* font-size: 15pt; */
+        }
+        .fc-left{
+            display: flex;
+            align-items: end;
+            flex-direction: row;
+        }
+
+        .fc-toolbar h2{
+            font-size: 15pt;
+             margin-bottom: 10px;
+        }
+ 
+      </style>
+    </ion-nav-buttons>
+
+    <ion-content style="background-size: cover;
+    background-image: url('/img/home-bg.svg');
+      background-color:white;" scroll="false">
+
+        <div ui-calendar="uiConfig.calendar" ng-model="eventSources">
+
+    </ion-content>
+
+
+    <script id="add-calendar.html" type="text/ng-template">
+        <ion-modal-view style="bottom:10%;border-raduius:10px;border-radius: 10px;">
+          <ion-header-bar>
+              <!-- <button type="button" class="button button-assertive button-clear" ng-click="closeModalCalendar()">ปิด</button> -->
+            <h1 class="title" style="text-align:center" >เพิ่มนัดหมาย</h1>
+
+            <button type="button" class="button button-assertive button-clear" ng-click="closeModalCalendar()">ปิด</button>
+
+            <!-- <button type="submit" class="button icon ion-trash-a button-assertive button-outline" ng-click="vm.deleteCrop()" ></button> -->
+          </ion-header-bar>
+          <ion-content >
+    
+            <div class="list">
+    
+              <a class="item" ng-repeat="x in vm.data.result" ng-click="selectSP(x)">
+                <h2>{{x.sp_addr}}</h2>
+                <p>{{x.sp_sort}}</p>
+                <p>{{x.sp_territory}}</p>
+    
+              </a>
+    
+    
+          </div>
+          </ion-content>
+        </ion-modal-view>
+      </script>
+
+    </ion-view>
