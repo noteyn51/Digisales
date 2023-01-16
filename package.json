@@ -1,0 +1,90 @@
+{
+  "name": "digisales",
+  "version": "0.0.1",
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@ionic/v1-toolkit": "^1.0.0",
+    "com-sarriaroman-photoviewer": "^1.2.5",
+    "cordova-android": "^11.0.0",
+    "cordova-ios": "^6.2.0",
+    "cordova-plugin-androidx": "^3.0.0",
+    "cordova-plugin-androidx-adapter": "^1.1.3",
+    "cordova-plugin-app-version": "^0.1.9",
+    "cordova-plugin-camera": "^6.0.0",
+    "cordova-plugin-datepicker": "^0.9.3",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-firebasex": "^14.2.1",
+    "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-network-information": "^2.0.2",
+    "cordova-plugin-request-location-accuracy": "^2.3.0",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
+    "cordova.plugins.diagnostic": "^7.1.1",
+    "gulp": "^3.5.6",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-rename": "^1.2.0",
+    "phonegap-plugin-barcodescanner": "^8.1.0"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-datepicker": {},
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "true"
+      },
+      "phonegap-plugin-barcodescanner": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova.plugins.diagnostic": {
+        "ANDROIDX_VERSION": "1.0.0",
+        "ANDROIDX_APPCOMPAT_VERSION": "1.3.1"
+      },
+      "cordova-plugin-request-location-accuracy": {
+        "PLAY_SERVICES_LOCATION_VERSION": "16.+"
+      },
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-app-version": {},
+      "cordova-plugin-androidx": {},
+      "cordova-plugin-androidx-adapter": {},
+      "com-sarriaroman-photoviewer": {},
+      "cordova-plugin-camera": {
+        "ANDROIDX_CORE_VERSION": "1.6.+"
+      },
+      "cordova-plugin-firebasex": {
+        "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
+        "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
+        "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
+        "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
+        "ANDROID_ICON_ACCENT": "#FF00FFFF",
+        "ANDROID_FIREBASE_PERFORMANCE_MONITORING": "false",
+        "ANDROID_PLAY_SERVICES_TAGMANAGER_VERSION": "18.0.1",
+        "ANDROID_PLAY_SERVICES_AUTH_VERSION": "20.2.0",
+        "ANDROID_FIREBASE_ANALYTICS_VERSION": "21.0.0",
+        "ANDROID_FIREBASE_MESSAGING_VERSION": "23.0.5",
+        "ANDROID_FIREBASE_CONFIG_VERSION": "21.1.0",
+        "ANDROID_FIREBASE_PERF_VERSION": "20.0.6",
+        "ANDROID_FIREBASE_AUTH_VERSION": "21.0.4",
+        "ANDROID_FIREBASE_INAPPMESSAGING_VERSION": "20.1.2",
+        "ANDROID_FIREBASE_FIRESTORE_VERSION": "24.1.2",
+        "ANDROID_FIREBASE_FUNCTIONS_VERSION": "20.1.0",
+        "ANDROID_FIREBASE_IID_VERSION": "21.1.0",
+        "ANDROID_FIREBASE_INSTALLATIONS_VERSION": "17.0.1",
+        "ANDROID_FIREBASE_CRASHLYTICS_VERSION": "18.2.10",
+        "ANDROID_FIREBASE_CRASHLYTICS_NDK_VERSION": "18.2.10",
+        "ANDROID_GSON_VERSION": "2.9.0",
+        "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.1",
+        "ANDROID_GRPC_OKHTTP": "1.46.0"
+      },
+      "cordova-plugin-ionic-webview": {}
+    },
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  }
+}
