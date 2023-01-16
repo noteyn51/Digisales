@@ -8,13 +8,13 @@ Digisales is an application designed for use by salespeople. that make the sales
 
 <p float="left"  align="center">
 <kbd>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/1.png" alt="drawing" width="200"/>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/2.png" alt="drawing" width="200"/>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/3.png" alt="drawing" width="200"/>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/4.png" alt="drawing" width="200"/>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/5.png" alt="drawing" width="200"/>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/6.png" alt="drawing" width="200"/>
-<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/7.png" alt="drawing" width="200"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/1.png" alt="drawing" width="300"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/2.png" alt="drawing" width="300"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/3.png" alt="drawing" width="300"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/4.png" alt="drawing" width="300"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/5.png" alt="drawing" width="300"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/6.png" alt="drawing" width="300"/>
+<img src="https://github.com/noteyn51/digisales/blob/main/screenshot/7.png" alt="drawing" width="300"/>
 
 </kbd>
 
