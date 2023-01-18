@@ -1080,11 +1080,12 @@ angular
         }
 
         if ($scope.model.item.qty <= 0) {
-          $scope.model.item.qty = 1;
+          $scope.model.item.qty = null;
+
         }
 
         if (!$scope.model.item.price || $scope.model.item.price < 0) {
-          $scope.model.item.price = 0;
+          $scope.model.item.price = null;
         }
 
         try {
@@ -1213,11 +1214,11 @@ angular
         }
 
         if ($scope.model.item.qty <= 0) {
-          $scope.model.item.qty = 1;
+          $scope.model.item.qty = null;
         }
 
         if (!$scope.model.item.price || $scope.model.item.price < 0) {
-          $scope.model.item.price = 0;
+          $scope.model.item.price = null;
         }
 
         try {

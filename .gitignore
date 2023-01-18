@@ -28,3 +28,6 @@ npm-debug.log*
 /node_modules
 /platforms
 /plugins
+GoogleService-Info.plist
+google-services.json
+config.xml
