@@ -2,11 +2,9 @@
   <ion-nav-title>แก้ไขนัดหมาย</ion-nav-title>
 
   <ion-content>
-    <!-- <button class="button button-clear button-positive" ng-click="finish()">back</button> -->
     <div class="list" ng-if="data.calendar_date2_start_value == null">
       <div class="item item-icon-right" ng-click="openModalCm()">
         <span style="font-weight: bold">ลูกค้าเป้าหมาย</span>
-        <!-- <div>ลูกค้าเป้าหมาย</div> -->
         <i class="icon ion-arrow-down-b" style="font-size: 18px"></i>
         <p ng-if="!model.cm">เลือกลูกค้าเป้าหมาย</p>
         <p ng-if="model.cm">{{model.cm.cm_sort}}</p>
@@ -14,7 +12,6 @@
 
       <div class="item item-icon-right" ng-click="openModalOs()">
         <span style="font-weight: bold">เลขที่โอกาสการขาย</span>
-        <!-- <div>ลูกค้าเป้าหมาย</div> -->
         <i class="icon ion-arrow-down-b" style="font-size: 18px"></i>
         <p ng-if="!model.os">เลือกเลขที่โอกาสการขาย</p>
         <p ng-if="model.os">{{model.os.os_nbr}}</p>

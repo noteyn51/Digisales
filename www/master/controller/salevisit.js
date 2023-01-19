@@ -591,7 +591,12 @@ angular
       var defaultTimedescEnd;
 
       if ($scope.data) {
-        defaultdate = new Date($scope.data.calendar_date1_start_value);
+        var dateMomentObject = moment(
+          $scope.data.calendar_date1_start_value,
+          "YYYY-MM-DD HH:mm"
+        ); // 1st argument - string, 2nd argument - format
+        defaultdate = dateMomentObject.toDate();
+
         defaultdateValue = defaultdate.toLocaleDateString("en-CA");
         defaultdateDesc = defaultdate.toLocaleDateString("th-TH", {
           year: "numeric",
@@ -604,7 +609,12 @@ angular
           minute: "2-digit",
         });
 
-        defaultdateEnd = new Date($scope.data.calendar_date1_end_value);
+        var dateMomentObjectEnd = moment(
+          $scope.data.calendar_date1_end_value,
+          "YYYY-MM-DD HH:mm"
+        ); // 1st argument - string, 2nd argument - format
+        defaultdateEnd = dateMomentObjectEnd.toDate();
+
         defaultdateValueEnd = defaultdateEnd.toLocaleDateString("en-CA");
         defaultdateDescEnd = defaultdateEnd.toLocaleDateString("th-TH", {
           year: "numeric",
@@ -880,7 +890,6 @@ angular
                 type: "button-positive",
                 onTap: function (e) {
                   if (!$scope.datamodal.date) {
-                    //don't allow the user to close unless he enters wifi password
                     e.preventDefault();
                   } else {
                     return $scope.datamodal.date;
@@ -1195,6 +1204,8 @@ angular
         $state.go("app.salevisitEdit", {
           data: JSON.stringify($scope.visitDetail),
         });
+
+        console.log($scope.visitDetail);
       };
       $scope.checkVisit = function (e) {
         console.log($scope.model);
@@ -1670,11 +1681,7 @@ angular
       $scope.getvisit();
 
       $scope.changeTo = "English";
-      /* event source that pulls from google.com */
 
-      /* event source that contains custom events on the scope */
-
-      /* event source that calls a function on every view switch */
       $scope.eventsF = function (start, end, timezone, callback) {
         console.log(1);
         var s = new Date(start).getTime() / 1000;
@@ -1793,21 +1800,10 @@ angular
           day: "numeric",
         });
 
-        // if(date._ambigTime){
-        //   $state.go('app.salevisitAdd',{date:mydate})
-        //   //กดมาทั้งวัน
-        // }else{
-        //กดมาบอกช่วงเวลา
         $state.go("app.salevisitAdd", { date: mydate });
-
-        // }
 
         console.log(date);
         console.log(date._d.toUTCString());
-
-        // console.log(mydate.getTime());
-        // console.log(mydate.getHours());
-        // console.log(mydate.getMinutes());
 
         console.log(result);
       };
