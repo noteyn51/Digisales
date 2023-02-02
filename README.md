@@ -2,7 +2,8 @@
 
 Digisales is an application designed for use by salespeople. that make the salesperson more convenient to use and work more systematically than the traditional way of working
 
-<!-- [Available for download in Google Playstore.](https://play.google.com/store/apps/details?id=com.doublem.gotaxi) -->
+[Available for download in Google Playstore.](https://play.google.com/store/apps/details?id=com.doublem.digisales)
+
 
 ![](https://github.com/noteyn51/digisales/blob/main/screenshot/intro.gif)
 
@@ -19,3 +20,5 @@ Digisales is an application designed for use by salespeople. that make the sales
     <img src="https://github.com/noteyn51/digisales/blob/main/screenshot/7.png" alt="drawing" width="300"/>
 </kbd>
 </p>
+
+
